@@ -21,8 +21,8 @@ public interface ShoppingListDAO {
     @Delete
     void delete(ShoppingList shoppingLists);
 
-    @Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table)
-    List<ShoppingList> getShoppingLists();
+    //@Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table)
+    //List<ShoppingList> getShoppingLists();
 
    // @Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table + "WHERE")
     //Kitchen getShoppingListByTODO(int TODO);
