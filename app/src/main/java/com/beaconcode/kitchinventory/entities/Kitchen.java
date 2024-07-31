@@ -32,28 +32,28 @@ public class Kitchen {
 
 
     //getters and setters
-    public int getInventoryID() {
-        return inventoryID;
+    public int getInventoryId() {
+        return inventoryId;
     }
 
-    public void setInventoryID(int inventoryID) {
-        this.inventoryID = inventoryID;
+    public void setInventoryId(int inventoryId) {
+        this.inventoryId = inventoryId;
     }
 
-    public int getFoodID() {
-        return foodID;
+    public int getFoodId() {
+        return foodId;
     }
 
-    public void setFoodID(int foodID) {
-        this.foodID = foodID;
+    public void setFoodID(int foodId) {
+        this.foodId = foodId;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserID(int userId) {
+        this.userId = userId;
     }
 
     //equals and hashcode
@@ -62,11 +62,11 @@ public class Kitchen {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Kitchen kitchen = (Kitchen) o;
-        return inventoryID == kitchen.inventoryID && foodID == kitchen.foodID && userID == kitchen.userID;
+        return inventoryId == kitchen.inventoryId && foodId == kitchen.foodId && userId == kitchen.userId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inventoryID, foodID, userID);
+        return Objects.hash(inventoryId, foodId, userId);
     }
 }
