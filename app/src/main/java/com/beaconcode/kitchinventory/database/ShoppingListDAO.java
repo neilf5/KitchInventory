@@ -8,6 +8,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
+/**
+ * ShoppingList DAO
+ * This is the DAO that manages requests for shoppingList_table
+ */
 @Dao
 public interface ShoppingListDAO {
 
@@ -24,6 +28,6 @@ public interface ShoppingListDAO {
     //@Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table)
     //List<ShoppingList> getShoppingLists();
 
-   // @Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table + "WHERE")
+   //TODO @Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table + "WHERE")
     //Kitchen getShoppingListByTODO(int TODO);
 }
