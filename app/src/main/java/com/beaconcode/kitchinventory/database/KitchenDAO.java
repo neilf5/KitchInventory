@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.beaconcode.kitchinventory.entities.Kitchen;
+import com.beaconcode.kitchinventory.database.entities.Kitchen;
 
 /**
  * Kitchen DAO

@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory.entities;
+package com.beaconcode.kitchinventory.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

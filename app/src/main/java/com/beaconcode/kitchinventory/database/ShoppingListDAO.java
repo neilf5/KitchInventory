@@ -3,12 +3,9 @@ package com.beaconcode.kitchinventory.database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
-import androidx.room.Query;
 import androidx.room.Update;
 
-import com.beaconcode.kitchinventory.entities.ShoppingList;
-
-import java.util.List;
+import com.beaconcode.kitchinventory.database.entities.ShoppingList;
 
 /**
  * ShoppingList DAO
