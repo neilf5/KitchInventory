@@ -6,6 +6,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.beaconcode.kitchinventory.entities.Kitchen;
+
 /**
  * Kitchen DAO
  * This is the DAO that manages requests for kitchen_table
