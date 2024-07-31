@@ -9,14 +9,14 @@ import java.util.Objects;
  * Organizes the data of ingredients that user currently has in kitchen
  */
 
-@Entity(tableName = "Kitchen")
+@Entity(tableName = "kitchen_table")
 public class Kitchen {
 
     @PrimaryKey(autoGenerate = true)
 
-    private int inventoryID;
-    private int foodID;
-    private int userID;
+    private int inventoryId;
+    private int foodId;
+    private int userId;
 
     private String name;
     private int quantity;
