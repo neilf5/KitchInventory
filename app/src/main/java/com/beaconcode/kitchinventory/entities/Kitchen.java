@@ -44,7 +44,7 @@ public class Kitchen {
         return foodId;
     }
 
-    public void setFoodID(int foodId) {
+    public void setFoodId(int foodId) {
         this.foodId = foodId;
     }
 
@@ -52,7 +52,7 @@ public class Kitchen {
         return userId;
     }
 
-    public void setUserID(int userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
