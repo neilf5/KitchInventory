@@ -6,6 +6,10 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+/**
+ * Kitchen DAO
+ * This is the DAO that manages requests for kitchen_table
+ */
 @Dao
 public interface KitchenDAO {
 

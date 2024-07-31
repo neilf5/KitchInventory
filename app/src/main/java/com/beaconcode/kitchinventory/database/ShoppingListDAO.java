@@ -8,6 +8,10 @@ import androidx.room.Update;
 
 import java.util.List;
 
+/**
+ * ShoppingList DAO
+ * This is the DAO that manages requests for shoppingList_table
+ */
 @Dao
 public interface ShoppingListDAO {
 
