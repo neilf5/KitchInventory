@@ -2,6 +2,9 @@ package com.beaconcode.kitchinventory.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.beaconcode.kitchinventory.database.KitchenDatabase;
+
 import java.util.Objects;
 
 /**
@@ -9,11 +12,10 @@ import java.util.Objects;
  * Organizes the data of ingredients that user currently has in kitchen
  */
 
-@Entity(tableName = "kitchen_table")
+@Entity(tableName = KitchenDatabase.KITCHEN_TABLE)
 public class Kitchen {
 
     @PrimaryKey(autoGenerate = true)
-
     private int inventoryId;
     private int foodId;
     private int userId;

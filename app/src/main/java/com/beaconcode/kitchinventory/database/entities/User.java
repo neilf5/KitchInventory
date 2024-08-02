@@ -4,9 +4,15 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.beaconcode.kitchinventory.database.KitchenDatabase;
+
 import java.util.Objects;
 
-@Entity(tableName = "user_table")
+/**
+ * Represents a user of the KitchInventory app.
+ * This entity is stored in the user_table of the Room database.
+ */
+@Entity(tableName = KitchenDatabase.USER_TABLE)
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int userId;
@@ -14,6 +20,11 @@ public class User {
     private String password;
     private boolean isAdmin;
 
+    /**
+     * Creates a new User object. By default, the user is not an admin.
+     * @param username the user's username
+     * @param password the user's password
+     */
     public User(String username, String password) {
         this.username = username;
         this.password = password;
