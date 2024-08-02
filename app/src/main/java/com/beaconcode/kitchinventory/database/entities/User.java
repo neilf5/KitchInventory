@@ -4,9 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.beaconcode.kitchinventory.database.KitchenDatabase;
+
 import java.util.Objects;
 
-@Entity(tableName = "user_table")
+@Entity(tableName = KitchenDatabase.USER_TABLE)
 public class User {
     @PrimaryKey(autoGenerate = true)
     private int userId;

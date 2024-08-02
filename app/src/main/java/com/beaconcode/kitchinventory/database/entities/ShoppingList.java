@@ -3,17 +3,18 @@ package com.beaconcode.kitchinventory.database.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.beaconcode.kitchinventory.database.KitchenDatabase;
+
 import java.util.Objects;
 
 /**
  * POJO representing a shopping list
  */
 
-@Entity(tableName = "shopping_list")
+@Entity(tableName = KitchenDatabase.SHOPPING_LIST_TABLE)
 public class ShoppingList {
 
     @PrimaryKey(autoGenerate = true)
-
     private int inventoryId;
     private int foodId;
     private int userId;

@@ -24,6 +24,10 @@ public abstract class KitchenDatabase extends RoomDatabase {
     public abstract UserDAO userDAO();
     public abstract ShoppingListDAO shoppingListDAO();
 
+    public static final String KITCHEN_TABLE = "kitchen_table";
+    public static final String USER_TABLE = "user_table";
+    public static final String SHOPPING_LIST_TABLE = "shopping_list_table";
+
     private static volatile KitchenDatabase INSTANCE;
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
