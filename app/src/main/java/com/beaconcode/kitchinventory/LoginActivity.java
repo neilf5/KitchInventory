@@ -1,5 +1,7 @@
 package com.beaconcode.kitchinventory;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -15,4 +17,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     };
+
+    static Intent loginActivityIntentFactory(Context context) {
+        return new Intent(context, LoginActivity.class);
+    }
 }
