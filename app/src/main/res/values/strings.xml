@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">KitchInventory</string>
     <string name="cook">Cook</string>
-    <string name="inventory">Inventory</string>
+    <string name="inventory">Kitchen Inventory</string>
     <string name="shopping_list">Shopping List</string>
     <string name="welcome_to_kitchinventory_please_login">Welcome to KitchInventory. Please login or create an account.</string>
     <string name="create_account">Create Account</string>
