@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.databinding.ActivityCookBinding;
 import com.beaconcode.kitchinventory.views.CookAdapter;
+import com.beaconcode.kitchinventory.views.CookInterface;
 
 import java.util.ArrayList;
 
-public class CookActivity extends AppCompatActivity {
+public class CookActivity extends AppCompatActivity implements CookInterface {
 
     private String foodName;
     private ArrayList<String> foodList = new ArrayList<>();
@@ -29,7 +30,7 @@ public class CookActivity extends AppCompatActivity {
         RecyclerView recyclerView = binding.rvCook;
 
         setUpFoodList();
-        CookAdapter adapter = new CookAdapter(this, foodList);
+        CookAdapter adapter = new CookAdapter(this, foodList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         };
@@ -54,5 +55,11 @@ public class CookActivity extends AppCompatActivity {
 
     static Intent cookActivityIntentFactory(Context context) {
         return new Intent(context, CookActivity.class);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = RecipesActivity.recipesActivityIntentFactory(getApplicationContext(), foodList.get(position));
+        startActivity(intent);
     }
 }
