@@ -7,14 +7,43 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.beaconcode.kitchinventory.databinding.ActivityCookBinding;
+import com.beaconcode.kitchinventory.views.CookAdapter;
+
+import java.util.ArrayList;
 
 public class CookActivity extends AppCompatActivity {
+
+    private String foodName;
+    private ArrayList<String> foodList = new ArrayList<>();
+    private ActivityCookBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cook);
+        binding = ActivityCookBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        RecyclerView recyclerView = binding.rvCook;
+
+        setUpFoodList();
+        CookAdapter adapter = new CookAdapter(this, foodList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         };
+
+    private void setUpFoodList() {
+        foodList.add("Chicken");
+        foodList.add("Beef");
+        foodList.add("Pork");
+        foodList.add("Salmon");
+        foodList.add("Tofu");
+        foodList.add("Bananas");
+        foodList.add("Milk");
+        foodList.add("Tortillas");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
