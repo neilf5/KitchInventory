@@ -11,12 +11,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.databinding.ActivityRecipesBinding;
+import com.beaconcode.kitchinventory.views.RecipesAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipesActivity extends AppCompatActivity {
 
     private static final String COOK_ACTIVITY_FOOD_NAME = "com.beaconcode.kitchinventory.COOK_ACTIVITY_FOOD_NAME";
 
     private ActivityRecipesBinding binding;
+    private List<Recipe> recipeList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +33,7 @@ public class RecipesActivity extends AppCompatActivity {
         binding.tvIngredientName.setText(foodName);
 
         RecyclerView recyclerView = binding.rvRecipes;
-        recyclerView.setAdapter(new RecipeAdapter());
+        recyclerView.setAdapter(new RecipesAdapter(this, recipeList));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         };
 
