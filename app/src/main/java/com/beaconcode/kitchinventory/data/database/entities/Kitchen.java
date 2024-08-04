@@ -1,18 +1,19 @@
-package com.beaconcode.kitchinventory.database.entities;
+package com.beaconcode.kitchinventory.data.database.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.beaconcode.kitchinventory.database.KitchenDatabase;
+import com.beaconcode.kitchinventory.data.database.KitchenDatabase;
 
 import java.util.Objects;
 
 /**
- * POJO representing a shopping list
+ * Kitchen Class
+ * Organizes the data of ingredients that user currently has in kitchen
  */
 
-@Entity(tableName = KitchenDatabase.SHOPPING_LIST_TABLE)
-public class ShoppingList {
+@Entity(tableName = KitchenDatabase.KITCHEN_TABLE)
+public class Kitchen {
 
     @PrimaryKey(autoGenerate = true)
     private int inventoryId;
@@ -23,25 +24,16 @@ public class ShoppingList {
     private int quantity;
     private double price;
 
-    public ShoppingList(String name, int quantity, double price) {
+
+    //constructor
+    public Kitchen(String name, int quantity, double price) {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ShoppingList shoppingList = (ShoppingList) o;
-        return inventoryId == shoppingList.inventoryId && foodId == shoppingList.foodId && userId == shoppingList.userId;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(inventoryId, foodId, userId);
-    }
-
+    //getters and setters
     public int getInventoryId() {
         return inventoryId;
     }
@@ -64,6 +56,20 @@ public class ShoppingList {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    //equals and hashcode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Kitchen kitchen = (Kitchen) o;
+        return inventoryId == kitchen.inventoryId && foodId == kitchen.foodId && userId == kitchen.userId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(inventoryId, foodId, userId);
     }
 
     public String getName() {
@@ -90,5 +96,3 @@ public class ShoppingList {
         this.price = price;
     }
 }
-
-

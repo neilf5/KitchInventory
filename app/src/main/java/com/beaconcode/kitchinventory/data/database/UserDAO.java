@@ -1,11 +1,11 @@
-package com.beaconcode.kitchinventory.database;
+package com.beaconcode.kitchinventory.data.database;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Update;
 
-import com.beaconcode.kitchinventory.database.entities.User;
+import com.beaconcode.kitchinventory.data.database.entities.User;
 
 /**
  * User DAO

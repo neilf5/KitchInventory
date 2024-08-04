@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory.database;
+package com.beaconcode.kitchinventory.data.database;
 
 import android.content.Context;
 
@@ -6,9 +6,9 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.beaconcode.kitchinventory.database.entities.User;
-import com.beaconcode.kitchinventory.database.entities.Kitchen;
-import com.beaconcode.kitchinventory.database.entities.ShoppingList;
+import com.beaconcode.kitchinventory.data.database.entities.User;
+import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
+import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
