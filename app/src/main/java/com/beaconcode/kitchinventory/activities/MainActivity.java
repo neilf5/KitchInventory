@@ -9,6 +9,9 @@ import android.view.MenuInflater;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beaconcode.kitchinventory.R;
+import com.beaconcode.kitchinventory.data.database.KitchenRepository;
+import com.beaconcode.kitchinventory.data.database.ShoppingListRepository;
+import com.beaconcode.kitchinventory.data.database.UserRepository;
 import com.beaconcode.kitchinventory.databinding.ActivityMainBinding;
 
 /**
@@ -22,6 +25,12 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
 
+    private KitchenRepository kitchenRepository;
+
+    private UserRepository userRepository;
+
+    private ShoppingListRepository shoppingListRepository;
+
     /**
      * Called when the activity is first created.
      * Initializes the activity and sets the content view to the main layout.
@@ -33,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        kitchenRepository = KitchenRepository.getRepository(getApplication());
+
+        userRepository = UserRepository.getRepository(getApplication());
+
+        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
         binding.btnCook.setOnClickListener(v -> {
             Intent intent = CookActivity.cookActivityIntentFactory(getApplicationContext());

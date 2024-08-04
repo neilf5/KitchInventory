@@ -3,9 +3,13 @@ package com.beaconcode.kitchinventory.data.database;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Update;
 
 import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
+import com.beaconcode.kitchinventory.data.database.entities.User;
+
+import java.util.List;
 
 /**
  * ShoppingList DAO
@@ -24,9 +28,7 @@ public interface ShoppingListDAO {
     @Delete
     void delete(ShoppingList shoppingLists);
 
-    //@Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table)
-    //List<ShoppingList> getShoppingLists();
-
-   //TODO @Query("SELECT * FROM " + ShoppingListDatabase.shoppingList_Table + "WHERE")
-    //Kitchen getShoppingListByTODO(int TODO);
+    @Query("SELECT * from " + KitchenDatabase.SHOPPING_LIST_TABLE)
+    List<ShoppingList> getAllRecords();
 }
+
