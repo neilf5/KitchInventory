@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory;
+package com.beaconcode.kitchinventory.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.databinding.ActivityCookBinding;
-import com.beaconcode.kitchinventory.views.CookAdapter;
-import com.beaconcode.kitchinventory.views.CookInterface;
+import com.beaconcode.kitchinventory.ui.adapters.CookAdapter;
+import com.beaconcode.kitchinventory.ui.view.CookInterface;
 
 import java.util.ArrayList;
 
@@ -39,7 +40,7 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
         CookAdapter adapter = new CookAdapter(this, foodList, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        };
+        }
 
     /**
      * Sets up the list of food items to be displayed in the RecyclerView.
@@ -52,9 +53,10 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
         foodList.add("Pork");
         foodList.add("Salmon");
         foodList.add("Tofu");
-        foodList.add("Bananas");
+        foodList.add("Banana");
         foodList.add("Milk");
-        foodList.add("Tortillas");
+        foodList.add("Lentils");
+        foodList.add("Rice");
     }
 
     /**

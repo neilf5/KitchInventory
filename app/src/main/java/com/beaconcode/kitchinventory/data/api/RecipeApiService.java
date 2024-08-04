@@ -1,4 +1,6 @@
-package com.beaconcode.kitchinventory;
+package com.beaconcode.kitchinventory.data.api;
+
+import com.beaconcode.kitchinventory.data.model.Meals;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

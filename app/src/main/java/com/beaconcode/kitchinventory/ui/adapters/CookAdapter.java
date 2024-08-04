@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory.views;
+package com.beaconcode.kitchinventory.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
+import com.beaconcode.kitchinventory.ui.view.CookInterface;
 
 import java.util.ArrayList;
 

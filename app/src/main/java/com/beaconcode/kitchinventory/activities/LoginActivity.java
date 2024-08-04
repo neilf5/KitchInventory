@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory;
+package com.beaconcode.kitchinventory.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.databinding.ActivityLoginBinding;
 
 /**
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(v -> {
             verifyUser();
         });
-    };
+    }
 
     //TODO: Need to pull user data from the database and also implement datastore to keep track of user login state
 
@@ -35,7 +36,6 @@ public class LoginActivity extends AppCompatActivity {
         String username = binding.etUsernameLogin.getText().toString();
         if (username.isEmpty()) {
             toastMaker("Username cannot be empty.");
-            return;
         }
     }
 

@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory.views;
+package com.beaconcode.kitchinventory.ui.view;
 
 /**
  * Interface for handling item click events in a RecyclerView.

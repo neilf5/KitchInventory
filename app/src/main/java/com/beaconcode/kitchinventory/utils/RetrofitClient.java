@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory;
+package com.beaconcode.kitchinventory.utils;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

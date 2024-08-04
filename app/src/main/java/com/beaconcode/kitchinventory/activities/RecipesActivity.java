@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory;
+package com.beaconcode.kitchinventory.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.databinding.ActivityRecipesBinding;
-import com.beaconcode.kitchinventory.views.RecipesAdapter;
-import com.beaconcode.kitchinventory.views.RecipesViewModel;
+import com.beaconcode.kitchinventory.ui.adapters.RecipesAdapter;
+import com.beaconcode.kitchinventory.ui.viewmodels.RecipesViewModel;
 
 /**
  * Activity to display a list of recipes based on a selected ingredient.

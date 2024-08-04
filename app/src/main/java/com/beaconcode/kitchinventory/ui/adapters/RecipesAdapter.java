@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory.views;
+package com.beaconcode.kitchinventory.ui.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
-import com.beaconcode.kitchinventory.Meal;
+import com.beaconcode.kitchinventory.data.model.Meal;
 import com.bumptech.glide.Glide;
 
 /**

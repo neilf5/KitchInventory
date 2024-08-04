@@ -1,13 +1,13 @@
-package com.beaconcode.kitchinventory.views;
+package com.beaconcode.kitchinventory.ui.viewmodels;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.beaconcode.kitchinventory.Meal;
-import com.beaconcode.kitchinventory.Meals;
-import com.beaconcode.kitchinventory.RecipeServiceHelper;
+import com.beaconcode.kitchinventory.data.model.Meal;
+import com.beaconcode.kitchinventory.data.model.Meals;
+import com.beaconcode.kitchinventory.utils.RecipeServiceHelper;
 
 import java.util.List;
 

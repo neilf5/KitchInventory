@@ -1,4 +1,4 @@
-package com.beaconcode.kitchinventory;
+package com.beaconcode.kitchinventory.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.beaconcode.kitchinventory.R;
 
 /**
  * This activity will display the current items in the user's kitchen inventory from the database.
@@ -17,7 +19,7 @@ public class KitchenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen);
-        };
+        }
 
     /**
      * Initializes the contents of the Activity's standard options menu.

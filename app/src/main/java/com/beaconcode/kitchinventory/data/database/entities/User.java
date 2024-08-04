@@ -1,10 +1,9 @@
-package com.beaconcode.kitchinventory.database.entities;
+package com.beaconcode.kitchinventory.data.database.entities;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.beaconcode.kitchinventory.database.KitchenDatabase;
+import com.beaconcode.kitchinventory.data.database.KitchenDatabase;
 
 import java.util.Objects;
 
