@@ -8,11 +8,50 @@
     tools:context=".KitchenActivity">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/kitchInventoryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KITCHEN ACTIVITY"
+        android:text="Your KitchInventory"
+        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="255dp" />
+
+    <TextView
+        android:id="@+id/kitchInventoryBox"
+        android:layout_width="400dp"
+        android:layout_height="400dp"
+        android:text="Ingredients:"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="@+id/kitchInventoryTitle"
+        app:layout_constraintStart_toStartOf="@id/kitchInventoryTitle"
+        app:layout_constraintTop_toBottomOf="@+id/kitchInventoryTitle" />
+
+    <Button
+        android:id="@+id/cookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/cook"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/kitchInventoryBox" />
+
+    <Space
+        android:id="@+id/spacer"
+        android:layout_width="235dp"
+        android:layout_height="10dp"
+        app:layout_constraintTop_toBottomOf="@id/kitchInventoryBox"
+        app:layout_constraintStart_toEndOf="@id/cookButton"
+        app:layout_constraintEnd_toStartOf="@id/shopButton"
+/>
+
+    <Button
+        android:id="@+id/shopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shop"
+        app:layout_constraintStart_toEndOf="@id/spacer"
+        app:layout_constraintTop_toBottomOf="@id/kitchInventoryBox" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

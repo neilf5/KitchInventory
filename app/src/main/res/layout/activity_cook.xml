@@ -8,11 +8,33 @@
     tools:context=".CookActivity">
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/dishesTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="COOK ACTIVITY"
+        android:text="@string/based_on_your_inventory_you_can_make"
+        android:textSize="30sp"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="306dp" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/dishesDisplay"
+        android:layout_width="410dp"
+        android:layout_height="340dp"
+        android:text="Dishes:"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dishesTitle" />
+
+    <Button
+        android:id="@+id/backToMainButton"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dishesDisplay"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
