@@ -62,7 +62,7 @@ public class ShoppingListRepository {
         return null;
     }
 
-    public void insertGymLog(ShoppingList shoppingList){
+    public void insertShoppingList(ShoppingList shoppingList){
         KitchenDatabase.databaseWriteExecutor.execute(()->
         {
             shoppingListDAO.insert(shoppingList);

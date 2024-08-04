@@ -62,7 +62,7 @@ public class UserRepository {
         return null;
     }
 
-    public void insertGymLog(User user){
+    public void insertUser(User user){
         KitchenDatabase.databaseWriteExecutor.execute(()->
         {
             userDAO.insert(user);

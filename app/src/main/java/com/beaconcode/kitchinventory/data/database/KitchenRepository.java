@@ -61,7 +61,7 @@ public class KitchenRepository {
         return null;
     }
 
-    public void insertGymLog(Kitchen kitchen){
+    public void insertKitchen(Kitchen kitchen){
         KitchenDatabase.databaseWriteExecutor.execute(()->
         {
             kitchenDAO.insert(kitchen);
