@@ -24,6 +24,7 @@ public abstract class KitchenDatabase extends RoomDatabase {
     public abstract UserDAO userDAO();
     public abstract ShoppingListDAO shoppingListDAO();
 
+    public static final String DATABASE_NAME = "kitchen_database";
     public static final String KITCHEN_TABLE = "kitchen_table";
     public static final String USER_TABLE = "user_table";
     public static final String SHOPPING_LIST_TABLE = "shopping_list_table";
@@ -43,7 +44,7 @@ public abstract class KitchenDatabase extends RoomDatabase {
             synchronized (KitchenDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            KitchenDatabase.class, "kitchen_database")
+                            KitchenDatabase.class, DATABASE_NAME)
                             .fallbackToDestructiveMigration()
                             .build();
                 }
