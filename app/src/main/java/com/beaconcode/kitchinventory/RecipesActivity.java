@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.databinding.ActivityRecipesBinding;
 import com.beaconcode.kitchinventory.views.RecipesAdapter;
+import com.beaconcode.kitchinventory.views.RecipesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,11 @@ public class RecipesActivity extends AppCompatActivity {
 
     private static final String COOK_ACTIVITY_FOOD_NAME = "com.beaconcode.kitchinventory.COOK_ACTIVITY_FOOD_NAME";
 
+    private RecipesViewModel recipesViewModel;
     private ActivityRecipesBinding binding;
+    private RecipesAdapter adapter;
     private List<Meal> mealList = new ArrayList<>();
-    private RecipeServiceHelper recipeServiceHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,34 +43,22 @@ public class RecipesActivity extends AppCompatActivity {
         binding.tvIngredientName.setText(foodName);
 
 
-        recipeServiceHelper = new RecipeServiceHelper();
+        recipesViewModel = new RecipesViewModel();
 
 
         RecyclerView recyclerView = binding.rvRecipes;
-        RecipesAdapter adapter = new RecipesAdapter(this, mealList);
-        //recyclerView.setAdapter(new RecipesAdapter(this, mealList));
+        adapter = new RecipesAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        Call<Meals> call = recipeServiceHelper.getRecipesByIngredient(foodName);
-        call.enqueue(new Callback<Meals>() {
-            @Override
-            public void onResponse(@NonNull Call<Meals> call, @NonNull Response<Meals> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    mealList.addAll(response.body().getMeals());
-                    recyclerView.getAdapter().notifyDataSetChanged();
-                } else {
-                    Toast.makeText(RecipesActivity.this, "Error loading recipes", Toast.LENGTH_SHORT).show();
-                }
-            }
-            @Override
-            public void onFailure(Call<Meals> call, Throwable t) {
-                Toast.makeText(RecipesActivity.this, "FAILURE", Toast.LENGTH_SHORT).show();
+        recipesViewModel.getMeals().observe(this, meals -> {
+            if (meals != null) {
+                adapter.submitList(meals);
+            } else {
+                Toast.makeText(this, "Failed to get recipes", Toast.LENGTH_SHORT).show();
             }
         });
-
-
+        recipesViewModel.getMealsByIngredient(foodName);
     }
 
     static Intent recipesActivityIntentFactory(Context context, String foodName) {

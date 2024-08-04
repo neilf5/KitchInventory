@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="48dp"
                 android:text="Recipe Name"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/iv_recipeImage"
                 app:layout_constraintTop_toTopOf="parent" />
