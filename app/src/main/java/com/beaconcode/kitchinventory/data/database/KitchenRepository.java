@@ -39,7 +39,7 @@ public class KitchenRepository {
         try{
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.d("DB","Problem getting GymLogRepository, thread error.");
+            Log.d("DB","Problem getting KitchenRepository, thread error.");
         }
         return null;
     }
@@ -56,15 +56,15 @@ public class KitchenRepository {
         try{
             return future.get();
         }catch (InterruptedException | ExecutionException e){
-            Log.i("DB", "Problem when getting all GymLogs in the repository");
+            Log.i("DB", "Problem when getting all Kitchens in the repository");
         }
         return null;
     }
 
-    public void insertGymLog(Kitchen gymLog){
+    public void insertGymLog(Kitchen kitchen){
         KitchenDatabase.databaseWriteExecutor.execute(()->
         {
-            kitchenDAO.insert(gymLog);
+            kitchenDAO.insert(kitchen);
         });
     }
 }
