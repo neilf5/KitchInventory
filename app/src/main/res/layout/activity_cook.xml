@@ -22,8 +22,8 @@
         android:id="@+id/dishesDisplay"
         android:layout_width="410dp"
         android:layout_height="340dp"
-        android:text="Dishes:"
-        android:textSize="30dp"
+        android:text="@string/dishes"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dishesTitle" />
 
@@ -31,7 +31,7 @@
         android:id="@+id/backToMainButton"
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:text="Back"
+        android:text="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/dishesDisplay"
         />

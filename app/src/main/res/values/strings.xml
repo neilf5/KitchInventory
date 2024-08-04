@@ -10,4 +10,8 @@
     <string name="username">Username</string>
     <string name="based_on_your_inventory_you_can_make">Based on your inventory, you can make:</string>
     <string name="shop">Shop</string>
+    <string name="dishes">Dishes:</string>
+    <string name="back">Back</string>
+    <string name="ingredients">Ingredients:</string>
+    <string name="your_kitchinventory">Your KitchInventory</string>
 </resources>
