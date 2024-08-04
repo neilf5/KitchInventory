@@ -16,12 +16,19 @@ import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.Meal;
 import com.bumptech.glide.Glide;
 
-import java.util.List;
-
+/**
+ * Adapter class for displaying a list of recipes in a RecyclerView.
+ * This adapter uses DiffUtil to efficiently update the list when data changes.
+ */
 public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolder> {
 
     Context context;
 
+    /**
+     * Constructor for RecipesAdapter.
+     * Overrides the default DiffUtil.ItemCallback to compare Meal objects.
+     * @param context The context in which the adapter is used.
+     */
     public RecipesAdapter(Context context) {
         super(new DiffUtil.ItemCallback<Meal>() {
             @Override
@@ -38,6 +45,12 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
 
     }
 
+    /**
+     * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new ViewHolder that holds a View of the given view type.
+     */
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -46,6 +59,11 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
         return new MyViewHolder(view);
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     * @param holder The ViewHolder which should be updated to represent the contents of the item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Meal meal = getItem(position);
@@ -54,14 +72,21 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
     }
 
 
+    /**
+     * ViewHolder class for RecipesAdapter.
+     * This class holds the views for each item in the RecyclerView.
+     */
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         ImageView recipeImage;
         TextView recipeName;
 
+        /**
+         * Constructor for MyViewHolder.
+         * @param itemView The view of the item.
+         */
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             recipeImage = itemView.findViewById(R.id.iv_recipeImage);
             recipeName = itemView.findViewById(R.id.tv_recipeName);
 

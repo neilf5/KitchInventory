@@ -2,6 +2,10 @@ package com.beaconcode.kitchinventory;
 
 import java.util.Objects;
 
+/**
+ * Represents a meal item that is fetched from the mealdb API.
+ * Holds the name of the meal, the URL of the meal image, and the meal ID.
+ */
 public class Meal {
     private String strMeal;
     private String strMealThumb;

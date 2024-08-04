@@ -2,6 +2,10 @@ package com.beaconcode.kitchinventory;
 
 import java.util.List;
 
+/**
+ * Represents a list of meals fetched from the mealdb API.
+ * Holds a list of Meal objects.
+ */
 public class Meals {
     private List<Meal> meals;
 
