@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.model.Meal;
+import com.beaconcode.kitchinventory.ui.view.RecipesInterface;
 import com.bumptech.glide.Glide;
 
 /**
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
  * This adapter uses DiffUtil to efficiently update the list when data changes.
  */
 public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolder> {
+    private final RecipesInterface recipesInterface;
 
     Context context;
 
@@ -29,7 +31,7 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
      * Overrides the default DiffUtil.ItemCallback to compare Meal objects.
      * @param context The context in which the adapter is used.
      */
-    public RecipesAdapter(Context context) {
+    public RecipesAdapter(RecipesInterface recipesInterface, Context context) {
         super(new DiffUtil.ItemCallback<Meal>() {
             @Override
             public boolean areItemsTheSame(@NonNull Meal oldItem, @NonNull Meal newItem) {
@@ -41,6 +43,7 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
                 return oldItem.equals(newItem);
             }
         });
+        this.recipesInterface = recipesInterface;
         this.context = context;
 
     }
@@ -56,7 +59,7 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.item_recipes, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, recipesInterface);
     }
 
     /**
@@ -85,11 +88,19 @@ public class RecipesAdapter extends ListAdapter<Meal, RecipesAdapter.MyViewHolde
          * Constructor for MyViewHolder.
          * @param itemView The view of the item.
          */
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecipesInterface recipesInterface) {
             super(itemView);
             recipeImage = itemView.findViewById(R.id.iv_recipeImage);
             recipeName = itemView.findViewById(R.id.tv_recipeName);
 
+            itemView.setOnClickListener(v -> {
+                if (recipesInterface != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        recipesInterface.onRecipeClick(position);
+                    }
+                }
+            });
         }
     }
 }
