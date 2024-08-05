@@ -1,5 +1,6 @@
 package com.beaconcode.kitchinventory.data.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -41,4 +42,9 @@ public interface KitchenDAO {
      */
     @Query("SELECT * from " + KitchenDatabase.KITCHEN_TABLE)
     List<Kitchen> getAllRecords();
+
+    @Query("SELECT name from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
+    LiveData<List<String>> getFoodList();
+
+
 }

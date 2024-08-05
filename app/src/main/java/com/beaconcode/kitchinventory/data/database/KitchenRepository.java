@@ -3,9 +3,12 @@ package com.beaconcode.kitchinventory.data.database;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -59,6 +62,11 @@ public class KitchenRepository {
             Log.i("DB", "Problem when getting all Kitchens in the repository");
         }
         return null;
+    }
+
+
+    public LiveData<List<String>> getFoodList(){
+        return kitchenDAO.getFoodList();
     }
 
     public void insertKitchen(Kitchen kitchen){
