@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.database.KitchenRepository;
@@ -24,6 +25,7 @@ import com.beaconcode.kitchinventory.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private static final String MAIN_ACTIVITY_USER_ID = "com.beaconcode.kitchinventory.MAIN_ACTIVITY_USER_ID";
+    private static final String SAVED_INSTANCE_STATE_USERID_KEY = "com.beaconcode.kitchinventory.SAVED_INSTANCE_STATE_USERID_KEY";
     private static final int LOGGED_OUT = -1;
 
     private ActivityMainBinding binding;
@@ -52,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
+        loginUser(savedInstanceState);
+
         if (loggedInUserId == LOGGED_OUT) {
             Intent intent = LoginActivity.loginActivityIntentFactory(getApplicationContext());
             startActivity(intent);
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Updates the shared preferences with the logged in user ID.
+     * Updates the shared preferences with the logged in user ID
      * The user ID is stored in the shared preferences to persist the user's login state across app launches.
      */
     private void updateSharedPreference() {
@@ -109,5 +113,36 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(context, MainActivity.class);
         intent.putExtra(MAIN_ACTIVITY_USER_ID, userId);
         return intent;
+    }
+
+    /**
+     * This method is used to restore the user's login state by checking the shared preferences and the intent.
+     * TODO: Refactor this. This is Dr C's implementation from GymLog and it's not the best way to handle this. Should use DataStore instead.
+     */
+    private void loginUser(Bundle savedInstanceState) {
+        //check shared preference for logged in user
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
+
+        loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userId_key), LOGGED_OUT);
+
+        if (loggedInUserId == LOGGED_OUT & savedInstanceState != null && savedInstanceState.containsKey(SAVED_INSTANCE_STATE_USERID_KEY)) {
+            loggedInUserId = savedInstanceState.getInt(SAVED_INSTANCE_STATE_USERID_KEY, LOGGED_OUT);
+        }
+
+        //check intent for logged in user
+        if (loggedInUserId == LOGGED_OUT) {
+            loggedInUserId = getIntent().getIntExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
+        }
+        if (loggedInUserId == LOGGED_OUT) {
+            return;
+        }
+        LiveData<User> userObserver = userRepository.getUserById(loggedInUserId);
+        userObserver.observe(this, user -> {
+            this.user = user;
+            if (user != null) {
+                invalidateOptionsMenu();
+            }
+        });
     }
 }
