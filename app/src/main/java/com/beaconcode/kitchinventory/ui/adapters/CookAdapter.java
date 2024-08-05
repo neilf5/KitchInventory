@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
@@ -18,23 +20,34 @@ import java.util.ArrayList;
  * Adapter class for displaying a list of food items in a RecyclerView.
  * This adapter binds the data to the views in each item of the RecyclerView.
  */
-public class CookAdapter extends RecyclerView.Adapter<CookAdapter.MyViewHolder> {
+public class CookAdapter extends ListAdapter<String, CookAdapter.MyViewHolder> {
 
     private final CookInterface cookInterface;
     Context context;
-    ArrayList<String> foodList;
 
     /**
      * Constructor for CookAdapter.
-     * @param context The context in which the adapter is used.
-     * @param foodList The list of food items to be displayed.
+     *
+     * @param context       The context in which the adapter is used.
      * @param cookInterface The interface for handling item click events.
      */
     public CookAdapter(Context context, ArrayList<String> foodList, CookInterface cookInterface) {
+        super(DIFF_CALLBACK);
         this.context = context;
-        this.foodList = foodList;
         this.cookInterface = cookInterface;
     }
+
+    private static final DiffUtil.ItemCallback<String> DIFF_CALLBACK = new DiffUtil.ItemCallback<String>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+            return oldItem.equals(newItem);
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+            return oldItem.equals(newItem);
+        }
+    };
 
     /**
      * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
@@ -57,17 +70,10 @@ public class CookAdapter extends RecyclerView.Adapter<CookAdapter.MyViewHolder> 
      */
     @Override
     public void onBindViewHolder(@NonNull CookAdapter.MyViewHolder holder, int position) {
-        holder.foodName.setText(foodList.get(position));
+        String foodName = getItem(position);
+        holder.foodName.setText(foodName);
     }
 
-    /**
-     * Returns the total number of items in the data set held by the adapter.
-     * @return The total number of items in this adapter.
-     */
-    @Override
-    public int getItemCount() {
-        return foodList.size();
-    }
 
     /**
      * ViewHolder class for CookAdapter.
@@ -91,7 +97,7 @@ public class CookAdapter extends RecyclerView.Adapter<CookAdapter.MyViewHolder> 
                     int position = getAdapterPosition();
 
                     if (position != RecyclerView.NO_POSITION) {
-                        cookInterface.onItemClick(position);
+                        cookInterface.onItemClick(foodName.getText().toString());
                     }
                 }
             });
