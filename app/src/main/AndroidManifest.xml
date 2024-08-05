@@ -15,6 +15,9 @@
         android:theme="@style/Theme.KitchInventory"
         tools:targetApi="31">
         <activity
+            android:name=".activities.RecipeDetailsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.UserRegistrationActivity"
             android:exported="false" />
         <activity

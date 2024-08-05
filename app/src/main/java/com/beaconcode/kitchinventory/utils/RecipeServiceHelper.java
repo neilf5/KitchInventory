@@ -21,6 +21,15 @@ public class RecipeServiceHelper {
     }
 
     /**
+     * Fetches a recipe by its ID.
+     * @param id The ID of the recipe to fetch.
+     * @return A Call object that can be used to request the recipe.
+     */
+    public Call<Meals> getRecipeById(String id) {
+        return recipeApiService.getRecipeById(id);
+    }
+
+    /**
      * Fetches a list of meals that contain the specified ingredient.
      * @param ingredient The ingredient to filter recipes by.
      * @return A Call object that can be used to request the list of meals.

@@ -87,8 +87,10 @@ public class RecipesActivity extends AppCompatActivity implements RecipesInterfa
 
     @Override
     public void onRecipeClick(int position) {
-        // Handle the click event for a recipe item
-        // For now, just show a toast message
-        Toast.makeText(this, "Recipe clicked at position " + position, Toast.LENGTH_SHORT).show();
+        // Get the meal ID of the clicked recipe
+        String mealId = adapter.getCurrentList().get(position).getIdMeal();
+        // Start the RecipeDetails activity with the meal ID
+        Intent intent = RecipeDetailsActivity.recipeDetailsIntentFactory(this, mealId);
+        startActivity(intent);
     }
 }

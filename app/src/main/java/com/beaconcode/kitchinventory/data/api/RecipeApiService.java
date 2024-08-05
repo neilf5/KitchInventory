@@ -21,4 +21,8 @@ public interface RecipeApiService {
     @GET("filter.php")
     Call<Meals> getRecipesByIngredient(
             @Query("i") String ingredient);
+
+    @GET("lookup.php")
+    Call<Meals> getRecipeById(
+            @Query("i") String id);
 }
