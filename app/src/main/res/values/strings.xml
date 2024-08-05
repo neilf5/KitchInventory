@@ -14,4 +14,5 @@
     <string name="submit">submit</string>
     <string name="delete_item">Delete Item</string>
     <string name="add_item">Add Item</string>
+    <string name="shopping_list_activity">SHOPPING LIST ACTIVITY</string>
 </resources>
