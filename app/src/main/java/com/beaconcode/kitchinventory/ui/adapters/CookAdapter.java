@@ -29,7 +29,6 @@ public class CookAdapter extends ListAdapter<String, CookAdapter.MyViewHolder> {
      * Constructor for CookAdapter.
      *
      * @param context       The context in which the adapter is used.
-     * @param foodList
      * @param cookInterface The interface for handling item click events.
      */
     public CookAdapter(Context context, ArrayList<String> foodList, CookInterface cookInterface) {
