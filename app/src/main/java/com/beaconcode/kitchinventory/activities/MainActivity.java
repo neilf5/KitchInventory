@@ -2,6 +2,7 @@ package com.beaconcode.kitchinventory.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,6 +13,7 @@ import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.database.KitchenRepository;
 import com.beaconcode.kitchinventory.data.database.ShoppingListRepository;
 import com.beaconcode.kitchinventory.data.database.UserRepository;
+import com.beaconcode.kitchinventory.data.database.entities.User;
 import com.beaconcode.kitchinventory.databinding.ActivityMainBinding;
 
 /**
@@ -22,14 +24,15 @@ import com.beaconcode.kitchinventory.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private static final String MAIN_ACTIVITY_USER_ID = "com.beaconcode.kitchinventory.MAIN_ACTIVITY_USER_ID";
+    private static final int LOGGED_OUT = -1;
 
     private ActivityMainBinding binding;
-
     private KitchenRepository kitchenRepository;
-
     private UserRepository userRepository;
-
     private ShoppingListRepository shoppingListRepository;
+
+    private int loggedInUserId = -1;
+    private User user;
 
     /**
      * Called when the activity is first created.
@@ -49,6 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
         shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
+        if (loggedInUserId == LOGGED_OUT) {
+            Intent intent = LoginActivity.loginActivityIntentFactory(getApplicationContext());
+            startActivity(intent);
+        } else {
+            updateSharedPreference();
+        }
+
         binding.btnCook.setOnClickListener(v -> {
             Intent intent = CookActivity.cookActivityIntentFactory(getApplicationContext());
             startActivity(intent);
@@ -63,6 +73,18 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());
             startActivity(intent);
         });
+    }
+
+    /**
+     * Updates the shared preferences with the logged in user ID.
+     * The user ID is stored in the shared preferences to persist the user's login state across app launches.
+     */
+    private void updateSharedPreference() {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
+        sharedPrefEditor.putInt(getString(R.string.preference_userId_key), loggedInUserId);
+        sharedPrefEditor.apply();
     }
 
     /**

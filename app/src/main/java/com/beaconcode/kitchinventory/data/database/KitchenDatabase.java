@@ -1,10 +1,13 @@
 package com.beaconcode.kitchinventory.data.database;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.beaconcode.kitchinventory.data.database.entities.User;
 import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
@@ -46,10 +49,33 @@ public abstract class KitchenDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             KitchenDatabase.class, DATABASE_NAME)
                             .fallbackToDestructiveMigration()
+                            .addCallback(addDefaultValues)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
+
+    /**
+     * This is a test method that adds an admin user and a test user to the database.
+     * This method is called when the database is created.
+     * TODO: Remove this method before releasing the app. Replaced by adding users through registration activity
+     */
+    private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            Log.i("DATABASE_LOG", "DATABASE CREATED!");
+            databaseWriteExecutor.execute(() -> {
+                UserDAO dao = INSTANCE.userDAO();
+                dao.deleteAll();
+                User admin = new User("admin1", "admin1");
+                admin.setAdmin(true);
+                dao.insert(admin);
+                User testUser1 = new User("testuser1", "testuser1");
+                dao.insert(testUser1);
+            });
+        }
+    };
 }

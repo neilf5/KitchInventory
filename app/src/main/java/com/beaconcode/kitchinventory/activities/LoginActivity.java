@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.beaconcode.kitchinventory.R;
+import com.beaconcode.kitchinventory.data.database.UserRepository;
+import com.beaconcode.kitchinventory.data.database.entities.User;
 import com.beaconcode.kitchinventory.databinding.ActivityLoginBinding;
 
 /**
@@ -15,6 +18,8 @@ import com.beaconcode.kitchinventory.databinding.ActivityLoginBinding;
  * This activity provides the interface for user login and verifies user credentials.
  */
 public class LoginActivity extends AppCompatActivity {
+
+    private UserRepository userRepository;
 
     private ActivityLoginBinding binding;
 
@@ -30,14 +35,32 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: Need to pull user data from the database and also implement datastore to keep track of user login state
-
+    /**
+     * Verifies the user credentials entered in the login form.
+     * If the user is valid, the user is navigated to the MainActivity.
+     */
     private void verifyUser() {
         String username = binding.etUsernameLogin.getText().toString();
         if (username.isEmpty()) {
             toastMaker("Username cannot be empty.");
         }
+        LiveData<User> userObserver = userRepository.getUserByUsername(username);
+        userObserver.observe(this, user -> {
+            if (user != null) {
+                String password = binding.etPasswordLogin.getText().toString();
+                if (password.equals(user.getPassword())) {
+                    Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getId());
+                    startActivity(intent);
+                } else {
+                    toastMaker("Invalid password.");
+                }
+            } else {
+                toastMaker(String.format("User %s not a valid username", username));
+                binding.etUsernameLogin.setSelection(0, username.length());
+            }
+        });
     }
+
 
     /**
      * Factory method to create an Intent for starting LoginActivity.
