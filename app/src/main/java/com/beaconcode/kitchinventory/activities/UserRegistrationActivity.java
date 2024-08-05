@@ -1,6 +1,8 @@
 package com.beaconcode.kitchinventory.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,10 +24,23 @@ public class UserRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityUserRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        binding.submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getUserInfoFromDisplay();
+                insertUser();
+            }
+        });
     }
 
+    private void getUserInfoFromDisplay(){
+        mUsername = binding.usernameInputEditText.getText().toString();
+        mPassword = binding.passwordInputEditText.getText().toString();
+    }
     public void insertUser(){
         User user = new User(mUsername, mPassword);
         userRepository.insertUser(user);
+        Toast.makeText(this, "User Added", Toast.LENGTH_SHORT).show();
     }
 }
