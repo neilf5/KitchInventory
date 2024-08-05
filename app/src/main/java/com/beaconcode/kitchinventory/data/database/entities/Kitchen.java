@@ -26,10 +26,9 @@ public class Kitchen {
 
 
     //constructor
-    public Kitchen(String name, int quantity, double price) {
+    public Kitchen(String name, int quantity) {
         this.name = name;
         this.quantity = quantity;
-        this.price = price;
     }
 
 
