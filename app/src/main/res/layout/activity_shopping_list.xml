@@ -8,12 +8,50 @@
     tools:context=".activities.ShoppingListActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/shoppingListTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SHOPPING LIST ACTIVITY"
+        android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/shoppingListRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="24sp"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListTitle"
+        app:layout_constraintEnd_toEndOf="@id/shoppingListTitle"
+        app:layout_constraintStart_toStartOf="@id/shoppingListTitle"
+        />
+
+    <Button
+        android:id="@+id/addItemButton"
+        android:layout_marginTop="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_item"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/deleteItemButton"
+        />
+
+    <Button
+        android:id="@+id/deleteItemButton"
+        android:layout_marginTop="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_item"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/shoppingListRecyclerView"
+        app:layout_constraintStart_toEndOf="@id/addItemButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
