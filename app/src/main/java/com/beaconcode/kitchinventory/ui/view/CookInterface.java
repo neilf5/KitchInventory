@@ -7,7 +7,7 @@ package com.beaconcode.kitchinventory.ui.view;
 public interface CookInterface {
     /**
      * Called when an item in the RecyclerView is clicked.
-     * @param position The position of the clicked item in the adapter.
+     * @param foodName The name of the food item that was clicked.
      */
-    void onItemClick(int position);
+    void onItemClick(String foodName);
 }
