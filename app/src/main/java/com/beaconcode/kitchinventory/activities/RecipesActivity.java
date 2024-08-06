@@ -14,13 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.databinding.ActivityRecipesBinding;
 import com.beaconcode.kitchinventory.ui.adapters.RecipesAdapter;
+import com.beaconcode.kitchinventory.ui.view.RecipesInterface;
 import com.beaconcode.kitchinventory.ui.viewmodels.RecipesViewModel;
 
 /**
  * Activity to display a list of recipes based on a selected ingredient.
  * This activity fetches recipes from an API and displays them in a RecyclerView.
  */
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesActivity extends AppCompatActivity implements RecipesInterface {
 
     private static final String COOK_ACTIVITY_FOOD_NAME = "com.beaconcode.kitchinventory.COOK_ACTIVITY_FOOD_NAME";
 
@@ -44,7 +45,7 @@ public class RecipesActivity extends AppCompatActivity {
 
         // Set up the RecyclerView with the adapter and layout manager
         RecyclerView recyclerView = binding.rvRecipes;
-        adapter = new RecipesAdapter(this);
+        adapter = new RecipesAdapter(this, this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -84,4 +85,12 @@ public class RecipesActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onRecipeClick(int position) {
+        // Get the meal ID of the clicked recipe
+        String mealId = adapter.getCurrentList().get(position).getIdMeal();
+        // Start the RecipeDetails activity with the meal ID
+        Intent intent = RecipeDetailsActivity.recipeDetailsIntentFactory(this, mealId);
+        startActivity(intent);
+    }
 }
