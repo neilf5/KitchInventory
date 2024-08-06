@@ -23,10 +23,10 @@ public class ShoppingList {
     private int quantity;
     private double price;
 
-    public ShoppingList(String name, int quantity, double price) {
+    public ShoppingList(String name, int quantity) {
         this.name = name;
         this.quantity = quantity;
-        this.price = price;
+
     }
 
     @Override
