@@ -1,5 +1,7 @@
 package com.beaconcode.kitchinventory.data.model;
 
+import android.util.Log;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +81,12 @@ public class Meal {
         return strInstructions;
     }
 
-    // Method to get non-empty ingredients
+    /**
+     * Get the list of non-empty ingredients.
+     * This method uses reflection to get all the strIngredient fields in the class.
+     * It then checks if the field is non-empty and adds it to the list of ingredients.
+     * @return
+     */
     public List<String> getNonEmptyIngredients() {
         List<String> ingredients = new ArrayList<>();
         Field[] fields = this.getClass().getDeclaredFields();
@@ -92,6 +99,7 @@ public class Meal {
                     String ingredient = (String) field.get(this);
                     if (ingredient != null && !ingredient.isEmpty()) {
                         ingredients.add(ingredient);
+                        Log.d("Meal", "Ingredient: " + ingredient);
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
@@ -99,7 +107,7 @@ public class Meal {
             }
 
         }
-
+//        Manual implementation
 //        if (strIngredient1 != null && !strIngredient1.isEmpty()) ingredients.add(strIngredient1);
 //        if (strIngredient2 != null && !strIngredient2.isEmpty()) ingredients.add(strIngredient2);
 //        if (strIngredient3 != null && !strIngredient3.isEmpty()) ingredients.add(strIngredient3);
@@ -110,7 +118,12 @@ public class Meal {
         return ingredients;
     }
 
-    // Method to get non-empty measures
+    /**
+     * Get the list of non-empty measures.
+     * This method uses reflection to get all the strMeasure fields in the class.
+     * It then checks if the field is non-empty and adds it to the list of measures.
+     * @return
+     */
     public List<String> getNonEmptyMeasures() {
         List<String> measures = new ArrayList<>();
         Field[] fields = this.getClass().getDeclaredFields();
@@ -121,11 +134,13 @@ public class Meal {
                 }
                 try {
                     String measure = (String) field.get(this);
-                    if (measure != null && !measure.isEmpty()) {
+                    if (measure != null && !measure.trim().isEmpty()) {
                         measures.add(measure);
+                        Log.d("Meal", "Measure: " + measure);
                     }
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
+                    Log.e("Meal", "Error getting measure: " + e.getMessage());
                 }
             }
         }
