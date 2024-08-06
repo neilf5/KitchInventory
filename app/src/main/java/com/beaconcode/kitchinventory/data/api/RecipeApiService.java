@@ -22,6 +22,13 @@ public interface RecipeApiService {
     Call<Meals> getRecipesByIngredient(
             @Query("i") String ingredient);
 
+
+    /**
+     * Fetches a recipe by its ID.
+     * Makes a GET request to the "lookup.php" endpoint with the recipe ID as a query parameter.
+     * @param id
+     * @return
+     */
     @GET("lookup.php")
     Call<Meals> getRecipeById(
             @Query("i") String id);

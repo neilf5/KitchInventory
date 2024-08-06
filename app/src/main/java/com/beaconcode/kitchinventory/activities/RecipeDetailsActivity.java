@@ -24,6 +24,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ *  Activity to display the details of a recipe.
+ *  This activity is responsible for displaying the details of a selected recipe, including
+ *  the recipe name, image, instructions, and a list of ingredients with their measurements.
+ *  It uses a ViewModel to fetch and observe the recipe data.
+ */
 public class RecipeDetailsActivity extends AppCompatActivity {
 
     private static final String RECIPES_ACTIVITY_MEAL_ID = "com.beaconcode.kitchinventory.RECIPES_ACTIVITY_MEAL_ID";
@@ -33,6 +39,10 @@ public class RecipeDetailsActivity extends AppCompatActivity {
     private RecipeDetailsViewModel viewModel;
 
 
+    /**
+     * This method initializes the activity, sets up the ViewModel, retrieves the meal ID from the intent,
+     * and sets up the RecyclerView for displaying the ingredients.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +55,7 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         // Retrieve the meal ID passed from the previous activity
         String mealId = getIntent().getStringExtra(RECIPES_ACTIVITY_MEAL_ID);
 
-
+        // Set up the RecyclerView
         binding.rvIngredients.setLayoutManager(new LinearLayoutManager(this));
         ingredientsAdapter = new IngredientsAdapter(new ArrayList<>(), new ArrayList<>());
         binding.rvIngredients.setAdapter(ingredientsAdapter);
@@ -70,47 +80,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
 
     }
 
-//        RecipeServiceHelper helper = new RecipeServiceHelper();
-//        Call<Meals> call = helper.getRecipeById(mealId);
-//        call.enqueue(new Callback<Meals>() {
-//            @Override
-//            public void onResponse(Call<Meals> call, Response<Meals> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    List<Meal> meals = response.body().getMeals();
-//                    if (!meals.isEmpty()) {
-//                        Meal meal = meals.get(0); // Assuming you're interested in the first meal
-//                        List<String> ingredients = meal.getNonEmptyIngredients();
-//                        List<String> measures = meal.getNonEmptyMeasures();
-//
-//                        StringBuilder measureText = new StringBuilder();
-//                        StringBuilder ingredientsText = new StringBuilder();
-//                        for (int i = 0; i < ingredients.size(); i++) {
-//                            ingredientsText
-//                                    .append(measures.size() > i ? measures.get(i) : "") // Safeguard against mismatch in sizes
-//                                    .append(" ")
-//                                    .append(ingredients.get(i))
-//                                    .append(System.lineSeparator());
-////                            measureText.append("- ")
-////                                    .append(" ")
-////                                    .append(measures.get(i))
-////                                    .append(System.lineSeparator());
-//                        }
-//
-//                        binding.tvIngredientName.setText(ingredientsText.toString());
-////                        binding.tvMeasurement.setText(measureText.toString());
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Meals> call, Throwable t) {
-//                // Handle the error scenario
-//            }
-//        });
-//
-//    }
 
-
+    /**
+     * This method creates an Intent to start the RecipeDetailsActivity.
+     * @param context The context from which the intent is created.
+     * @param mealId The ID of the meal to display.
+     * @return The Intent to start the RecipeDetailsActivity.
+     */
     static Intent recipeDetailsIntentFactory(Context context, String mealId) {
         Intent intent = new Intent(context, RecipeDetailsActivity.class);
         intent.putExtra(RECIPES_ACTIVITY_MEAL_ID, mealId);

@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * Represents a meal item that is fetched from the mealdb API.
  * Holds the name of the meal, the URL of the meal image, and the meal ID.
+ * It also holds the instructions for preparing the meal, and the list of ingredients and their measures.
  */
 public class Meal {
     private String strMeal;
