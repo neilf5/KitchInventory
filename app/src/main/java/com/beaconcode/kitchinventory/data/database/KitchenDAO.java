@@ -48,6 +48,6 @@ public interface KitchenDAO {
     @Query("DELETE FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE name == :foodName")
     void deleteByFoodName(String foodName);
 
-    @Query ("SELECT * from " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId == :userId")
+    @Query("DELETE from " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId == :userId")
     void clearKitchenByUserId(int userId);
 }

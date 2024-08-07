@@ -59,7 +59,7 @@
         android:id="@+id/btn_delete_user"
         android:layout_width="160dp"
         android:layout_height="70dp"
-        android:text="Button"
+        android:text="Delete User"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

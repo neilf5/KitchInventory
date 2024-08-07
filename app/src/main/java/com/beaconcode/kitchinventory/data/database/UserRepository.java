@@ -84,9 +84,9 @@ public class UserRepository {
         return userDAO.getNonAdminUsers();
     }
 
-    public void deleteUserByUsername(String username) {
+    public void deleteUserByUserId(int userId) {
         KitchenDatabase.databaseWriteExecutor.execute(() -> {
-            userDAO.deleteUserByUsername(username);
+            userDAO.deleteUserByUserId(userId);
         });
     }
 

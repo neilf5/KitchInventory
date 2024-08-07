@@ -22,7 +22,7 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
     private UserRepository userRepository;
     private KitchenRepository kitchenRepository;
     private ShoppingListRepository shoppingListRepository;
-    private String selectedUsername;
+    private Integer selectedUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +50,18 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
 
         // Set up the delete button
         binding.btnDeleteUser.setOnClickListener(v -> {
-            if (selectedUsername != null) {
-                userRepository.deleteUserByUsername(selectedUsername);
-            }
-        });
+            userRepository.deleteUserByUserId(selectedUserId);
+                    });
 
         // Set up clear shopping list button
+        binding.btnClearShoppingList.setOnClickListener(v -> {
+            shoppingListRepository.clearShoppingListByUserId(selectedUserId);
+        });
+
+        // Set up clear kitchen button
+        binding.btnClearKitchen.setOnClickListener(v -> {
+            kitchenRepository.clearKitchenByUserId(selectedUserId);
+        });
 
 
     }
@@ -82,7 +88,9 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
         // Get the selected user
         String username = parent.getItemAtPosition(position).toString();
         userRepository.getUserByUsername(username).observe(this, user -> {
-            selectedUsername = user.getUsername();
+            if (user != null) {
+                selectedUserId = user.getUserId();
+            }
         });
     }
 
