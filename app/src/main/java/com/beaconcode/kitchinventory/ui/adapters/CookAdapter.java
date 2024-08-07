@@ -31,7 +31,7 @@ public class CookAdapter extends ListAdapter<String, CookAdapter.MyViewHolder> {
      * @param context       The context in which the adapter is used.
      * @param cookInterface The interface for handling item click events.
      */
-    public CookAdapter(Context context, ArrayList<String> foodList, CookInterface cookInterface) {
+    public CookAdapter(Context context, CookInterface cookInterface) {
         super(DIFF_CALLBACK);
         this.context = context;
         this.cookInterface = cookInterface;
