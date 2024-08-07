@@ -90,7 +90,10 @@ public class BaseActivity extends AppCompatActivity {
         loggedInUserId = LOGGED_OUT;
         updateSharedPreference();
         getIntent().putExtra(MAIN_ACTIVITY_USER_ID, LOGGED_OUT);
-        startActivity(LoginActivity.loginActivityIntentFactory(getApplicationContext()));
+        Intent intent = LoginActivity.loginActivityIntentFactory(getApplicationContext());
+        // Clear the back stack so the user cannot navigate back to another activity if they press the back button.
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     @Override

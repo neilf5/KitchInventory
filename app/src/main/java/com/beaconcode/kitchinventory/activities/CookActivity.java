@@ -29,7 +29,7 @@ import java.util.List;
  * This activity implements the CookInterface to handle item click events in the RecyclerView.
  * TODO: Future implementation of this activity should display a list of food items that is fetched from room database.
  */
-public class CookActivity extends AppCompatActivity implements CookInterface {
+public class CookActivity extends BaseActivity implements CookInterface {
 
     private String foodName;
     private ArrayList<String> foodList = new ArrayList<>();
@@ -52,6 +52,8 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
         viewModel.getFoodList().observe(this, adapter::submitList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
+
+
     }
 
 
