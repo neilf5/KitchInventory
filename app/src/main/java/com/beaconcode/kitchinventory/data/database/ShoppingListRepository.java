@@ -68,4 +68,11 @@ public class ShoppingListRepository {
             shoppingListDAO.insert(shoppingList);
         });
     }
+
+    public void clearShoppingListByUserId(int userId){
+        KitchenDatabase.databaseWriteExecutor.execute(()->
+        {
+            shoppingListDAO.clearShoppingListByUserId(userId);
+        });
+    }
 }

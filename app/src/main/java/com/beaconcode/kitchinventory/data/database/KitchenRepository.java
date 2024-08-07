@@ -88,4 +88,11 @@ public class KitchenRepository {
             kitchenDAO.insert(kitchen);
         });
     }
+
+    public void clearKitchenByUserId(int userId){
+        KitchenDatabase.databaseWriteExecutor.execute(()->
+        {
+            kitchenDAO.clearKitchenByUserId(userId);
+        });
+    }
 }
