@@ -2,6 +2,7 @@ package com.beaconcode.kitchinventory.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -53,7 +54,8 @@ public class LoginActivity extends AppCompatActivity {
             if (user != null) {
                 String password = binding.etPasswordLogin.getText().toString();
                 if (password.equals(user.getPassword())) {
-                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId()));
+                    saveUserIdToPreferences(user.getUserId());
+                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext()));
                 } else {
                     toastMaker("invalid password");
                     binding.etPasswordLogin.setSelection(0);
@@ -63,6 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                 binding.etUsernameLogin.setSelection(0);
             }
         });
+    }
+
+    private void saveUserIdToPreferences(int userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt(getString(R.string.preference_userId_key), userId);
+        editor.apply();
     }
 
     /**
