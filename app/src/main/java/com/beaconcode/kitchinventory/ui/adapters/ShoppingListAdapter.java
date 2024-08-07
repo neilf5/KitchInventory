@@ -93,7 +93,7 @@ public class ShoppingListAdapter extends RecyclerView.Adapter<ShoppingListAdapte
                     int position = getAdapterPosition();
 
                     if (position != RecyclerView.NO_POSITION) {
-                        cookInterface.onItemClick(position);
+                        cookInterface.onItemClick(foodName.getText().toString());
                     }
                 }
             });

@@ -30,7 +30,6 @@ public interface KitchenDAO {
     @Update
     void update(Kitchen... kitchens);
 
-
     /**
      * deletes Kitchen objects from the database
      */
@@ -45,6 +44,4 @@ public interface KitchenDAO {
 
     @Query("SELECT name from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
     LiveData<List<String>> getFoodList();
-
-
 }

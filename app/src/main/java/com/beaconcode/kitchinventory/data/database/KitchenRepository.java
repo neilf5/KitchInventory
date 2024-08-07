@@ -47,6 +47,12 @@ public class KitchenRepository {
         return null;
     }
 
+    //Doesn't work
+    public void delete(Kitchen kitchen)
+    {
+        kitchenDAO.delete(kitchen);
+    }
+
     public ArrayList<Kitchen> getAllLogs() {
         Future<ArrayList<Kitchen>> future = KitchenDatabase.databaseWriteExecutor.submit(
                 new Callable<ArrayList<Kitchen>>() {

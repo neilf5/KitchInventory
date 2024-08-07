@@ -33,6 +33,7 @@ public class ShoppingListActivity extends AppCompatActivity implements CookInter
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
     private KitchenRepository shoppingListRepository;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +41,61 @@ public class ShoppingListActivity extends AppCompatActivity implements CookInter
         binding = ActivityShoppingListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        RecyclerView recyclerView = binding.shoppingListRecyclerView;
+        recyclerView = binding.shoppingListRecyclerView;
 
         shoppingListRepository = KitchenRepository.getRepository(getApplication());
 
-        setUpFoodList();
-        getFoodList();
+        recyclerViewSetup();
 
-        ShoppingListAdapter adapter = new ShoppingListAdapter(this, shoppingList, this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        binding.addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = binding.itemName.getText().toString();
+                int quantity = 0;
+                try {
+                    quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(ShoppingListActivity.this, "Plz enter a valid number", Toast.LENGTH_SHORT).show();;
+                }
 
-        //setContentView(R.layout.activity_shopping_list);
-        }
+                if (quantity > 0)
+                {
+                    Kitchen kitchen = new Kitchen(name, quantity);
+                    shoppingListRepository.insertKitchen(kitchen);
+                }
+
+                //doesn't always work :/
+                shoppingList.clear(); // IDK why but these lines need to be called twice
+                recyclerViewSetup();  // Otherwise the recyclerview will print the items
+                shoppingList.clear();  // That were stored previously, as well as the items
+                recyclerViewSetup();  // That are being added when button is clicked
+                binding.itemName.getText().clear();
+                binding.itemQuantity.getText().clear();
+
+            }
+        });
+
+        binding.deleteItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String name = binding.itemName.getText().toString();
+                int quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
+
+
+                Kitchen kitchen = new Kitchen(name, quantity);
+                shoppingListRepository.delete(kitchen);
+                setUpFoodList();
+            }
+        });
+     }
+
+     private void recyclerViewSetup(){
+         setUpFoodList();
+         getFoodList();
+         ShoppingListAdapter adapter = new ShoppingListAdapter(ShoppingListActivity.this, shoppingList, ShoppingListActivity.this);
+         recyclerView.setAdapter(adapter);
+         recyclerView.setLayoutManager(new LinearLayoutManager(null));
+     }
 
     private void getFoodList() {
         LiveData<List<String>> userObserver = shoppingListRepository.getFoodList();
@@ -70,13 +113,13 @@ public class ShoppingListActivity extends AppCompatActivity implements CookInter
      * This method should be replaced with fetching data from a room database when possible.
      */
     private void setUpFoodList() {
-        shoppingList.add("Pork");
-        shoppingList.add("Salmon");
-        shoppingList.add("Tofu");
-        shoppingList.add("Banana");
-        shoppingList.add("Milk");
-        shoppingList.add("Lentils");
-        shoppingList.add("Rice");
+        try {
+            for (Kitchen food : shoppingListRepository.getAllLogs()) {
+                shoppingList.add(food.getName());
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Unknown error", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
@@ -102,11 +145,11 @@ public class ShoppingListActivity extends AppCompatActivity implements CookInter
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(String foodname) {
        // Intent intent = RecipesActivity.recipesActivityIntentFactory(getApplicationContext(), shoppingList.get(position));
        // startActivity(intent);
-        String text = shoppingList.get(position);
-        //Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        String text = foodname;
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 
 }
 }

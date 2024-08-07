@@ -23,10 +23,12 @@
         android:id="@+id/shoppingListRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:maxHeight="300dp"
         android:layout_marginTop="24sp"
         app:layout_constraintTop_toBottomOf="@id/shoppingListTitle"
-        app:layout_constraintEnd_toEndOf="@id/shoppingListTitle"
-        app:layout_constraintStart_toStartOf="@id/shoppingListTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_max="250dp"
         />
 
     <Button
@@ -50,6 +52,35 @@
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@id/shoppingListRecyclerView"
         app:layout_constraintStart_toEndOf="@id/addItemButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/itemName"
+        android:labelFor="@id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_item_name"
+        android:textSize="22sp"
+        android:inputType="text"
+        android:importantForAutofill="no"
+        app:layout_constraintTop_toBottomOf="@id/addItemButton"
+        app:layout_constraintEnd_toStartOf="@id/itemQuantity"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+    <EditText
+        android:id="@+id/itemQuantity"
+        android:labelFor="@id/itemQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_item_quantity"
+        android:textSize="22sp"
+        android:inputType="number"
+        android:importantForAutofill="no"
+        app:layout_constraintTop_toBottomOf="@id/deleteItemButton"
+        app:layout_constraintStart_toEndOf="@id/itemName"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
