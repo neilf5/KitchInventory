@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
  * This database contains three entities: Kitchen, User, and ShoppingList.
  * It provides DAOs for accessing these entities and manages a fixed thread pool for database operations.
  */
-@Database(entities = {Kitchen.class, User.class, ShoppingList.class}, version = 1, exportSchema = false)
+@Database(entities = {Kitchen.class, User.class, ShoppingList.class}, version = 2, exportSchema = false)
 public abstract class KitchenDatabase extends RoomDatabase {
     public abstract KitchenDAO kitchenDAO();
     public abstract UserDAO userDAO();
