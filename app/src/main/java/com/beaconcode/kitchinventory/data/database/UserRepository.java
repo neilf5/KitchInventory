@@ -4,6 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 
+import androidx.lifecycle.LiveData;
+
 import com.beaconcode.kitchinventory.data.database.entities.User;
 
 import java.util.ArrayList;
@@ -68,4 +70,13 @@ public class UserRepository {
             userDAO.insert(user);
         });
     }
+
+    public LiveData<User> getUserByUsername(String username) {
+        return userDAO.getUserByUsername(username);
+    }
+
+    public LiveData<User> getUserByUserId(int userId) {
+        return userDAO.getUserByUserId(userId);
+    }
+
 }

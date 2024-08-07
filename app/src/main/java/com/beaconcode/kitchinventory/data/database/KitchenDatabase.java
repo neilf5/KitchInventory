@@ -1,10 +1,13 @@
 package com.beaconcode.kitchinventory.data.database;
 
 import android.content.Context;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.beaconcode.kitchinventory.data.database.entities.User;
 import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
@@ -18,7 +21,7 @@ import java.util.concurrent.Executors;
  * This database contains three entities: Kitchen, User, and ShoppingList.
  * It provides DAOs for accessing these entities and manages a fixed thread pool for database operations.
  */
-@Database(entities = {Kitchen.class, User.class, ShoppingList.class}, version = 1, exportSchema = false)
+@Database(entities = {Kitchen.class, User.class, ShoppingList.class}, version = 2, exportSchema = false)
 public abstract class KitchenDatabase extends RoomDatabase {
     public abstract KitchenDAO kitchenDAO();
     public abstract UserDAO userDAO();
@@ -46,10 +49,29 @@ public abstract class KitchenDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             KitchenDatabase.class, DATABASE_NAME)
                             .fallbackToDestructiveMigration()
+                            .addCallback(addDefaultValues)
                             .build();
                 }
             }
         }
         return INSTANCE;
     }
+
+    private static final RoomDatabase.Callback addDefaultValues = new RoomDatabase.Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            Log.i("db", "DATABASE CREATED!");
+            databaseWriteExecutor.execute(() -> {
+                UserDAO dao = INSTANCE.userDAO();
+                dao.deleteAll();
+                User admin = new User("admin1", "admin1");
+                admin.setAdmin(true);
+                dao.insert(admin);
+
+                User testUser1 = new User("testuser1", "testuser1");
+                dao.insert(testUser1);
+            });
+        }
+    };
 }

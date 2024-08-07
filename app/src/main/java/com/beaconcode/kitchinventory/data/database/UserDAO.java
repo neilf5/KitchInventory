@@ -1,5 +1,6 @@
 package com.beaconcode.kitchinventory.data.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -29,4 +30,14 @@ public interface UserDAO {
 
     @Query("SELECT * from " + KitchenDatabase.USER_TABLE)
     List<User> getAllRecords();
+
+    @Query("SELECT * from " + KitchenDatabase.USER_TABLE + " WHERE username = :username")
+    LiveData<User> getUserByUsername(String username);
+
+    @Query("SELECT * from " + KitchenDatabase.USER_TABLE + " WHERE userId = :userId")
+    LiveData<User> getUserByUserId(int userId);
+
+    @Query("DELETE from " + KitchenDatabase.USER_TABLE)
+    void deleteAll();
+
 }
