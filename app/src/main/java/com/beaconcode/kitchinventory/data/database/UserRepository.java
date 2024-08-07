@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.beaconcode.kitchinventory.data.database.entities.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -77,6 +78,16 @@ public class UserRepository {
 
     public LiveData<User> getUserByUserId(int userId) {
         return userDAO.getUserByUserId(userId);
+    }
+
+    public LiveData<List<User>> getNonAdminUsers() {
+        return userDAO.getNonAdminUsers();
+    }
+
+    public void deleteUserByUsername(String username) {
+        KitchenDatabase.databaseWriteExecutor.execute(() -> {
+            userDAO.deleteUserByUsername(username);
+        });
     }
 
 }
