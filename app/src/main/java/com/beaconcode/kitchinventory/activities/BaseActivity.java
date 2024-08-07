@@ -17,6 +17,11 @@ import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.database.UserRepository;
 import com.beaconcode.kitchinventory.data.database.entities.User;
 
+/**
+ * BaseActivity is a class that provides common functionality for all activities in the application.
+ * It handles user login state, manages the options menu, and provides a logout mechanism.
+ * All activities in the application should extend this class to inherit these functionalities.
+ */
 public class BaseActivity extends AppCompatActivity {
 
     private static final String MAIN_ACTIVITY_USER_ID = "com.beaconcode.kitchinventory.MAIN_ACTIVITY_USER_ID";
@@ -27,6 +32,11 @@ public class BaseActivity extends AppCompatActivity {
     protected User user;
     protected int loggedInUserId = LOGGED_OUT;
 
+    /**
+     * Called when the activity is first created.
+     * Initializes the UserRepository and attempts to log in the user.
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut down then this Bundle contains the data it most recently supplied in onSaveInstanceState(Bundle). Note: Otherwise it is null.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +44,11 @@ public class BaseActivity extends AppCompatActivity {
         loginUser(savedInstanceState);
     }
 
+    /**
+     * Attempts to log in the user using saved preferences or intent extras.
+     * If the user is not logged in, starts the LoginActivity.
+     * @param savedInstanceState The saved instance state bundle.
+     */
     private void loginUser(Bundle savedInstanceState) {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         loggedInUserId = sharedPreferences.getInt(getString(R.string.preference_userId_key), LOGGED_OUT);
@@ -58,10 +73,20 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Returns the logged-in user's ID.
+     * This should be used to determine the logged-in user's ID in child activities.
+     * @return The logged-in user's ID.
+     */
     protected int getLoggedInUserId() {
         return loggedInUserId;
     }
 
+    /**
+     * Called to save the current instance state.
+     * Saves the logged-in user's ID to the instance state bundle.
+     * @param outState The bundle to save the instance state.
+     */
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -69,6 +94,9 @@ public class BaseActivity extends AppCompatActivity {
         updateSharedPreference();
     }
 
+    /**
+     * Updates the shared preferences with the current logged-in user's ID.
+     */
     private void updateSharedPreference() {
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor sharedPrefEditor = sharedPreferences.edit();
@@ -76,6 +104,10 @@ public class BaseActivity extends AppCompatActivity {
         sharedPrefEditor.apply();
     }
 
+    /**
+     * Shows a dialog to confirm user logout.
+     * If the user confirms, logs out the user.
+     */
     private void showLogoutDialog() {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(BaseActivity.this);
         final AlertDialog alertDialog = alertBuilder.create();
@@ -86,6 +118,10 @@ public class BaseActivity extends AppCompatActivity {
         alertBuilder.create().show();
     }
 
+    /**
+     * Logs out the user by clearing the logged-in user's ID and starting the LoginActivity.
+     * Clears the back stack to prevent navigation back to other activities.
+     */
     private void logout() {
         loggedInUserId = LOGGED_OUT;
         updateSharedPreference();
@@ -96,6 +132,11 @@ public class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Initializes the contents of the Activity's standard options menu.
+     * @param menu The options menu in which you place your items.
+     * @return true for the menu to be displayed; if false, it will not be shown.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -103,6 +144,12 @@ public class BaseActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Prepares the options menu before it is displayed.
+     * Sets the visibility and click listeners for the menu items based on the user's state.
+     * @param menu The options menu as last shown or first initialized by onCreateOptionsMenu().
+     * @return true for the menu to be displayed; if false, it will not be shown.
+     */
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem logout = menu.findItem(R.id.menu_logout);
