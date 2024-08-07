@@ -13,7 +13,7 @@ import com.beaconcode.kitchinventory.R;
 /**
  * This activity will display the current items in the user's kitchen inventory from the database.
  */
-public class KitchenActivity extends AppCompatActivity {
+public class KitchenActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

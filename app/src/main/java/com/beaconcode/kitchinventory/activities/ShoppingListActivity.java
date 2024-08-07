@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * This activity will display the current items in the user's shopping list from the database.
  */
-public class ShoppingListActivity extends AppCompatActivity implements CookInterface {
+public class ShoppingListActivity extends BaseActivity implements CookInterface {
 
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
@@ -60,7 +60,8 @@ public class ShoppingListActivity extends AppCompatActivity implements CookInter
 
                 if (quantity > 0)
                 {
-                    Kitchen kitchen = new Kitchen(name, quantity);
+                    //UPDATED THIS LINE TO INCLUDE NEW USERID PARAMETER
+                    Kitchen kitchen = new Kitchen(name, quantity, getLoggedInUserId());
                     shoppingListRepository.insertKitchen(kitchen);
                 }
 
