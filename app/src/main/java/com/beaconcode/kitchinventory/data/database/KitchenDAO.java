@@ -44,4 +44,7 @@ public interface KitchenDAO {
 
     @Query("SELECT name from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
     LiveData<List<String>> getFoodList();
+
+    @Query("DELETE FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE name == :foodName")
+    void deleteByFoodName(String foodName);
 }
