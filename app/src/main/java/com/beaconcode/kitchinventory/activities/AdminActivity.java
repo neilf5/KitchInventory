@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.beaconcode.kitchinventory.R;
@@ -17,6 +18,11 @@ import com.beaconcode.kitchinventory.data.database.UserRepository;
 import com.beaconcode.kitchinventory.data.database.entities.User;
 import com.beaconcode.kitchinventory.databinding.ActivityAdminBinding;
 
+/**
+ * AdminActivity is an activity that allows an admin user to manage other users.
+ * The admin can delete users, clear their shopping lists, and clear their kitchens.
+ * This activity uses a Spinner to select users and buttons to perform the actions.
+ */
 public class AdminActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     private ActivityAdminBinding binding;
     private UserRepository userRepository;
@@ -50,20 +56,71 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
 
         // Set up the delete button
         binding.btnDeleteUser.setOnClickListener(v -> {
-            userRepository.deleteUserByUserId(selectedUserId);
+            confirmDeleteUser();
                     });
 
         // Set up clear shopping list button
         binding.btnClearShoppingList.setOnClickListener(v -> {
-            shoppingListRepository.clearShoppingListByUserId(selectedUserId);
+            confirmClearShoppingList();
         });
 
         // Set up clear kitchen button
         binding.btnClearKitchen.setOnClickListener(v -> {
-            kitchenRepository.clearKitchenByUserId(selectedUserId);
+            confirmClearKitchen();
         });
 
 
+    }
+
+    /**
+     * Confirm the deletion of a user.
+     * If the user confirms the deletion, the user is deleted from the database.
+     */
+    private void confirmDeleteUser() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Are you sure you want to delete this user?");
+        alertBuilder.setPositiveButton("Delete User", (dialog, which) -> {
+            userRepository.deleteUserByUserId(selectedUserId);
+            alertDialog.dismiss();
+        });
+        alertBuilder.setNegativeButton("Cancel", (dialog, which) -> alertDialog.dismiss());
+        alertBuilder.create().show();
+    }
+
+    /**
+     * Confirm the clearing of a user's shopping list.
+     * If the user confirms the clearing, the shopping list is cleared from the database.
+     */
+    private void confirmClearShoppingList() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Are you sure you want to clear this user's shopping list?");
+        alertBuilder.setPositiveButton("Clear Shopping List", (dialog, which) -> {
+            shoppingListRepository.clearShoppingListByUserId(selectedUserId);
+            alertDialog.dismiss();
+        });
+        alertBuilder.setNegativeButton("Cancel", (dialog, which) -> alertDialog.dismiss());
+        alertBuilder.create().show();
+    }
+
+    /**
+     * Confirm the clearing of a user's kitchen.
+     * If the user confirms the clearing, the kitchen is cleared from the database.
+     */
+    private void confirmClearKitchen() {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        final AlertDialog alertDialog = alertBuilder.create();
+
+        alertBuilder.setMessage("Are you sure you want to clear this user's kitchen?");
+        alertBuilder.setPositiveButton("Clear Kitchen", (dialog, which) -> {
+            kitchenRepository.clearKitchenByUserId(selectedUserId);
+            alertDialog.dismiss();
+        });
+        alertBuilder.setNegativeButton("Cancel", (dialog, which) -> alertDialog.dismiss());
+        alertBuilder.create().show();
     }
 
     /**
