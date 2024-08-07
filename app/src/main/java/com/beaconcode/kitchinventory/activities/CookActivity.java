@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -16,8 +17,8 @@ import com.beaconcode.kitchinventory.data.database.KitchenRepository;
 import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.databinding.ActivityCookBinding;
 import com.beaconcode.kitchinventory.ui.adapters.CookAdapter;
+import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
 import com.beaconcode.kitchinventory.ui.view.CookInterface;
-import com.beaconcode.kitchinventory.ui.viewmodels.CookViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
     private ArrayList<String> foodList = new ArrayList<>();
     private ActivityCookBinding binding;
     private KitchenRepository kitchenRepository;
-    boolean isFoodListEmpty = true;
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,41 +42,46 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
         binding = ActivityCookBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        CookViewModel viewModel = new CookViewModel(getApplication());
-        CookAdapter adapter = new CookAdapter(this, foodList, this);
-        RecyclerView recyclerView = binding.rvCook;
+        recyclerView = binding.rvCook;
 
         kitchenRepository = KitchenRepository.getRepository(getApplication());
 
-        // Check if the food list is empty and populate it with predefined food items
-        // This is for testing purposes only.
-        if (isFoodListEmpty) {
-            setUpFoodList();
-            isFoodListEmpty = false;
-        }
-
-        viewModel.getFoodList().observe(this, adapter::submitList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewSetup();
     }
 
+    private void recyclerViewSetup(){
+        setUpFoodList();
+        getFoodList();
+        ShoppingListAdapter adapter = new ShoppingListAdapter(CookActivity.this, foodList, CookActivity.this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
+    }
+
+    private void getFoodList() {
+        LiveData<List<String>> userObserver = kitchenRepository.getFoodList();
+        userObserver.observe(this, list -> {
+            this.foodList = (ArrayList<String>) list;
+            if (list != null) {
+                invalidateOptionsMenu();
+            }
+        });
+    }
 
     /**
-     * Adds predefined food items to the Kitchen table in the database.
+     * Sets up the list of food items to be displayed in the RecyclerView.
+     * Adds predefined food items to the foodList.
+     * This method should be replaced with fetching data from a room database when possible.
      */
     private void setUpFoodList() {
-    Kitchen Chicken = new Kitchen("Chicken", 1);
-    kitchenRepository.insertKitchen(Chicken);
-    Kitchen Beef = new Kitchen("Beef", 1);
-    kitchenRepository.insertKitchen(Beef);
-       /* foodList.add("Pork");
-        foodList.add("Salmon");
-        foodList.add("Tofu");
-        foodList.add("Banana");
-        foodList.add("Milk");
-        foodList.add("Lentils");
-        foodList.add("Rice");*/
-}
+        try {
+            for (Kitchen food : kitchenRepository.getAllLogs()) {
+                foodList.add(food.getName());
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Unknown error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 /**
  * Initializes the contents of the Activity's standard options menu.

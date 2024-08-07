@@ -15,4 +15,6 @@
     <string name="delete_item">Delete Item</string>
     <string name="add_item">Add Item</string>
     <string name="shopping_list_activity">SHOPPING LIST ACTIVITY</string>
+    <string name="enter_item_quantity">Enter Item Quantity</string>
+    <string name="enter_item_name">Enter Item Name</string>
 </resources>
