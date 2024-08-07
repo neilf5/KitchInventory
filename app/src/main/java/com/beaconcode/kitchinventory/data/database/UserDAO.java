@@ -40,4 +40,10 @@ public interface UserDAO {
     @Query("DELETE from " + KitchenDatabase.USER_TABLE)
     void deleteAll();
 
+    @Query("DELETE from " + KitchenDatabase.USER_TABLE + " WHERE userId = :userId")
+    void deleteUserByUserId(int userId);
+
+    @Query("SELECT * from " + KitchenDatabase.USER_TABLE + " WHERE isAdmin = false")
+    LiveData<List<User>> getNonAdminUsers();
+
 }

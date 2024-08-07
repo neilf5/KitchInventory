@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         if (loggedInUserId == LOGGED_OUT) {
             Intent intent = LoginActivity.loginActivityIntentFactory(getApplicationContext());
             startActivity(intent);
+            finish();
         }
 
         binding.btnCook.setOnClickListener(v -> {
@@ -193,13 +194,14 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-       /* admin.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        admin.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                //startActivity(TODO IMPLEMENT INTENT FACTORY FOR ADMIN PAGE);
+                Intent intent = AdminActivity.adminActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
                 return false;
             }
-        });*/
+        });
         return true;
     }
 

@@ -19,6 +19,7 @@ import com.beaconcode.kitchinventory.databinding.ActivityCookBinding;
 import com.beaconcode.kitchinventory.ui.adapters.CookAdapter;
 import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
 import com.beaconcode.kitchinventory.ui.view.CookInterface;
+import com.beaconcode.kitchinventory.ui.viewmodels.CookViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,9 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
     private ArrayList<String> foodList = new ArrayList<>();
     private ActivityCookBinding binding;
     private KitchenRepository kitchenRepository;
-    RecyclerView recyclerView;
+    private CookAdapter adapter;
+    private CookViewModel viewModel;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,44 +45,13 @@ public class CookActivity extends AppCompatActivity implements CookInterface {
         binding = ActivityCookBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        viewModel = new CookViewModel(getApplication());
+        adapter = new CookAdapter(this, this);
         recyclerView = binding.rvCook;
 
-        kitchenRepository = KitchenRepository.getRepository(getApplication());
-
-        recyclerViewSetup();
-    }
-
-    private void recyclerViewSetup(){
-        setUpFoodList();
-        getFoodList();
-        ShoppingListAdapter adapter = new ShoppingListAdapter(CookActivity.this, foodList, CookActivity.this);
+        viewModel.getFoodList().observe(this, adapter::submitList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(null));
-    }
-
-    private void getFoodList() {
-        LiveData<List<String>> userObserver = kitchenRepository.getFoodList();
-        userObserver.observe(this, list -> {
-            this.foodList = (ArrayList<String>) list;
-            if (list != null) {
-                invalidateOptionsMenu();
-            }
-        });
-    }
-
-    /**
-     * Sets up the list of food items to be displayed in the RecyclerView.
-     * Adds predefined food items to the foodList.
-     * This method should be replaced with fetching data from a room database when possible.
-     */
-    private void setUpFoodList() {
-        try {
-            for (Kitchen food : kitchenRepository.getAllLogs()) {
-                foodList.add(food.getName());
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "Unknown error", Toast.LENGTH_SHORT).show();
-        }
     }
 
 

@@ -71,6 +71,10 @@ public abstract class KitchenDatabase extends RoomDatabase {
 
                 User testUser1 = new User("testuser1", "testuser1");
                 dao.insert(testUser1);
+                User testUser2 = new User("testuser2", "testuser2");
+                dao.insert(testUser2);
+                User testUser3 = new User("testuser3", "testuser3");
+                dao.insert(testUser3);
             });
         }
     };
