@@ -53,6 +53,13 @@ public class KitchenRepository {
         kitchenDAO.delete(kitchen);
     }
 
+    public void deleteByFoodName(String foodName){
+        KitchenDatabase.databaseWriteExecutor.execute(()->
+        {
+            kitchenDAO.deleteByFoodName(foodName);
+        });
+    }
+
     public ArrayList<Kitchen> getAllLogs() {
         Future<ArrayList<Kitchen>> future = KitchenDatabase.databaseWriteExecutor.submit(
                 new Callable<ArrayList<Kitchen>>() {

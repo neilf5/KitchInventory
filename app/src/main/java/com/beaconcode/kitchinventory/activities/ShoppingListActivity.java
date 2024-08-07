@@ -79,12 +79,19 @@ public class ShoppingListActivity extends AppCompatActivity implements CookInter
             @Override
             public void onClick(View view) {
                 String name = binding.itemName.getText().toString();
-                int quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
+               // int quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
 
 
-                Kitchen kitchen = new Kitchen(name, quantity);
-                shoppingListRepository.delete(kitchen);
-                setUpFoodList();
+              //  Kitchen kitchen = new Kitchen(name, quantity);
+              //  shoppingListRepository.delete(kitchen);
+                shoppingListRepository.deleteByFoodName(name);
+
+               // setUpFoodList();
+                shoppingList.clear();
+                recyclerViewSetup();
+                shoppingList.clear();
+                recyclerViewSetup();
+
             }
         });
      }
