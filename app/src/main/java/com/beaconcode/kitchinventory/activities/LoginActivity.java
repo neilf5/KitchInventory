@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 
 import com.beaconcode.kitchinventory.R;
+import com.beaconcode.kitchinventory.data.database.UserRepository;
+import com.beaconcode.kitchinventory.data.database.entities.User;
 import com.beaconcode.kitchinventory.databinding.ActivityLoginBinding;
 
 /**
@@ -18,11 +21,15 @@ public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
 
+    private UserRepository repository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
-        setContentView(R.layout.activity_login);
+        setContentView(binding.getRoot());
+
+        repository = UserRepository.getRepository(getApplication());
 
         // Set up the click listener for the login button
         binding.btnLogin.setOnClickListener(v -> {
@@ -30,13 +37,32 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: Need to pull user data from the database and also implement datastore to keep track of user login state
+    /**
+     * This method verifies the entered password with the entered username against the database to see if it matches
+     * If it matches it starts the main activity, if it does not it displays a toast and does not proceed.
+     */
 
     private void verifyUser() {
         String username = binding.etUsernameLogin.getText().toString();
         if (username.isEmpty()) {
             toastMaker("Username cannot be empty.");
+            return;
         }
+        LiveData<User> userObserver = repository.getUserByUsername(username);
+        userObserver.observe(this, user -> {
+            if (user != null) {
+                String password = binding.etPasswordLogin.getText().toString();
+                if (password.equals(user.getPassword())) {
+                    startActivity(MainActivity.mainActivityIntentFactory(getApplicationContext(), user.getUserId()));
+                } else {
+                    toastMaker("invalid password");
+                    binding.etPasswordLogin.setSelection(0);
+                }
+            } else {
+                toastMaker(String.format("%s is not a valid username.", username));
+                binding.etUsernameLogin.setSelection(0);
+            }
+        });
     }
 
     /**
@@ -55,4 +81,6 @@ public class LoginActivity extends AppCompatActivity {
     private void toastMaker(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+
 }
