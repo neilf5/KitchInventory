@@ -30,7 +30,7 @@ import retrofit2.Response;
  *  the recipe name, image, instructions, and a list of ingredients with their measurements.
  *  It uses a ViewModel to fetch and observe the recipe data.
  */
-public class RecipeDetailsActivity extends AppCompatActivity {
+public class RecipeDetailsActivity extends BaseActivity {
 
     private static final String RECIPES_ACTIVITY_MEAL_ID = "com.beaconcode.kitchinventory.RECIPES_ACTIVITY_MEAL_ID";
 

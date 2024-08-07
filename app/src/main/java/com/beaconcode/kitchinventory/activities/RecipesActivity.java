@@ -21,7 +21,7 @@ import com.beaconcode.kitchinventory.ui.viewmodels.RecipesViewModel;
  * Activity to display a list of recipes based on a selected ingredient.
  * This activity fetches recipes from an API and displays them in a RecyclerView.
  */
-public class RecipesActivity extends AppCompatActivity implements RecipesInterface {
+public class RecipesActivity extends BaseActivity implements RecipesInterface {
 
     private static final String COOK_ACTIVITY_FOOD_NAME = "com.beaconcode.kitchinventory.COOK_ACTIVITY_FOOD_NAME";
 
