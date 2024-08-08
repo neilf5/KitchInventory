@@ -29,7 +29,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
-    private ShoppingListRepository shoppingListRepository2;
+    private ShoppingListRepository shoppingListRepository;
     private RecyclerView recyclerView;
 
     @Override
@@ -40,7 +40,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
         recyclerView = binding.shoppingListRecyclerView;
 
-        shoppingListRepository2 = ShoppingListRepository.getRepository(getApplication());
+        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
         recyclerViewSetup();
 
@@ -59,7 +59,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
                 {
                     //UPDATED THIS LINE TO INCLUDE NEW USERID PARAMETER
                     ShoppingList item = new ShoppingList(name, quantity, getLoggedInUserId());
-                    shoppingListRepository2.insertShoppingList(item);
+                    shoppingListRepository.insertShoppingList(item);
 
                 }
 
@@ -79,7 +79,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
             public void onClick(View view) {
                 String name = binding.itemName.getText().toString();
 
-                shoppingListRepository2.deleteByFoodName(name);
+                shoppingListRepository.deleteByFoodName(name);
 
                 // setUpFoodList();
                 shoppingList.clear();
@@ -100,7 +100,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
     }
 
     private void getFoodList() {
-        LiveData<List<String>> userObserver = shoppingListRepository2.getFoodList();
+        LiveData<List<String>> userObserver = shoppingListRepository.getFoodList();
         userObserver.observe(this, list -> {
             this.shoppingList = (ArrayList<String>) list;
             if (list != null) {
@@ -116,7 +116,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
      */
     private void setUpFoodList() {
         try {
-            for (ShoppingList food : shoppingListRepository2.getAllLogs()) {
+            for (ShoppingList food : shoppingListRepository.getAllShoppingList()) {
                 shoppingList.add(food.getName());
             }
         } catch (Exception e) {
