@@ -16,11 +16,13 @@ import java.util.ArrayList;
 
 public class KitchenAdapter extends RecyclerView.Adapter<KitchenAdapter.MyViewHolder> {
     Context context;
-    ArrayList<String> foodList;
+    ArrayList<Kitchen> foodList;
 
-    public KitchenAdapter (Context context, ArrayList<String> foodList) {
+
+    public KitchenAdapter (Context context, ArrayList<Kitchen> foodList) {
         this.context = context;
         this.foodList = foodList;
+
     }
 
     @NonNull
@@ -37,8 +39,9 @@ public class KitchenAdapter extends RecyclerView.Adapter<KitchenAdapter.MyViewHo
      */
     @Override
     public void onBindViewHolder(@NonNull KitchenAdapter.MyViewHolder holder, int position) {
-        holder.foodName.setText(foodList.get(position));
-        holder.quantityName.setText(foodList.get(position));
+        holder.foodName.setText(foodList.get(position).getName());
+        String temp = "" + foodList.get(position).getQuantity();
+        holder.quantityName.setText(temp);
     }
 
     @Override

@@ -26,10 +26,12 @@ import java.util.List;
 /**
  * This activity will display the current items in the user's kitchen inventory from the database.
  */
+
+
 public class KitchenActivity extends BaseActivity {
 
-    private ArrayList<String> kitchenList = new ArrayList<>();
-    private ArrayList<Integer> quantityList = new ArrayList<>();
+    private ArrayList<Kitchen> kitchenList = new ArrayList<>();
+    private ArrayList<String> foodList = new ArrayList<>();
     private ActivityKitchenBinding binding;
     private KitchenRepository kitchenRepository;
     private RecyclerView recyclerView;
@@ -51,8 +53,9 @@ public class KitchenActivity extends BaseActivity {
 
     }
 
+
     private void recyclerViewSetup(){
-        setUpFoodList();
+        setUpLists();
         getFoodList();
 
         KitchenAdapter adapter = new KitchenAdapter(KitchenActivity.this, kitchenList);
@@ -64,47 +67,31 @@ public class KitchenActivity extends BaseActivity {
     private void getFoodList() {
         LiveData<List<String>> userObserver = kitchenRepository.getFoodList();
         userObserver.observe(this, list -> {
-            this.kitchenList = (ArrayList<String>) list;
+            this.foodList = (ArrayList<String>) list;
             if (list != null) {
                 invalidateOptionsMenu();
             }
         });
     }
 
-    private void getQuantityList() {
-        LiveData<List<Integer>> userObserver = kitchenRepository.getQuantityList();
-        userObserver.observe(this, list -> {
-            this.quantityList = (ArrayList<Integer>) list;
-            if (list != null) {
-                invalidateOptionsMenu();
+    private void setUpLists() {
+        try {
+            for (Kitchen kitchens : kitchenRepository.getAllLogs()) {
+                kitchenList.add(kitchens);
             }
-        });
-    }
+        } catch (Exception e) {
+            Toast.makeText(this, "Could not add to kitchen list", Toast.LENGTH_SHORT).show();
+        }
 
-    /**
-     * Sets up the list of food items to be displayed in the RecyclerView.
-     * Adds predefined food items to the foodList.
-     * This method should be replaced with fetching data from a room database when possible.
-     */
-    private void setUpFoodList() {
         try {
             for (Kitchen food : kitchenRepository.getAllLogs()) {
-                kitchenList.add(food.getName());
+                foodList.add(food.getName());
             }
         } catch (Exception e) {
             Toast.makeText(this, "Could not add to kitchen list", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void setUpQuantityList() {
-        try {
-            for (Kitchen amount : kitchenRepository.getAllLogs()) {
-                quantityList.add(amount.getQuantity());
-            }
-        } catch (Exception e) {
-            Toast.makeText(this, "Could not add to quantity list", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     /**
      * Initializes the contents of the Activity's standard options menu.
