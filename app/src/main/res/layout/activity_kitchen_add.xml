@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.273" />
 
     <EditText
-        android:id="@+id/editTextText"
+        android:id="@+id/userShopListInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints="Item name"
@@ -45,7 +45,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText"
+        app:layout_constraintTop_toBottomOf="@+id/userShopListInput"
         app:layout_constraintVertical_bias="0.151" />
 
     <Button
