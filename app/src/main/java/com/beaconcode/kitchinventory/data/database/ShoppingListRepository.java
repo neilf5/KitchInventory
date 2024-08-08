@@ -23,7 +23,7 @@ public class ShoppingListRepository {
     private ShoppingListRepository(Application application) {
         KitchenDatabase db = KitchenDatabase.getDatabase(application);
         this.shoppingListDAO = db.shoppingListDAO();
-        this.allLogs = (ArrayList<ShoppingList>) this.shoppingListDAO.getAllRecords();
+        this.allLogs = (ArrayList<ShoppingList>) this.shoppingListDAO.getAllShoppingList();
 
     }
 
@@ -47,12 +47,12 @@ public class ShoppingListRepository {
         return null;
     }
 
-    public ArrayList<ShoppingList> getAllLogs() {
+    public ArrayList<ShoppingList> getAllShoppingList() {
         Future<ArrayList<ShoppingList>> future = KitchenDatabase.databaseWriteExecutor.submit(
                 new Callable<ArrayList<ShoppingList>>() {
                     @Override
                     public ArrayList<ShoppingList> call() throws Exception {
-                        return (ArrayList<ShoppingList>) shoppingListDAO.getAllRecords();
+                        return (ArrayList<ShoppingList>) shoppingListDAO.getAllShoppingList();
                     }
                 }
         );
