@@ -68,6 +68,12 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This is saving the userID into the shared preferences so that will be kept the next time
+     * the user opens the app
+     * @param userId
+     */
+
     private void saveUserIdToPreferences(int userId) {
         SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
