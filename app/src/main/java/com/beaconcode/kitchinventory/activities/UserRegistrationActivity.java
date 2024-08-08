@@ -1,7 +1,8 @@
 package com.beaconcode.kitchinventory.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,28 +20,47 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
     String mUsername = "";
     String mPassword = "";
+    String mVerify = "";
+    private UserRepository repository;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityUserRegistrationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        repository = UserRepository.getRepository(getApplication());
 
-        binding.submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getUserInfoFromDisplay();
-                insertUser();
+        binding.submitButton.setOnClickListener(v -> {
+            getUserInfoFromDisplay();
+
+            if(mUsername.isEmpty()){
+                Toast.makeText(UserRegistrationActivity.this, "Please enter a username.", Toast.LENGTH_SHORT).show();
+                return;
             }
+            if(mPassword.isEmpty()){
+                Toast.makeText(UserRegistrationActivity.this, "Please enter a password.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if(!mVerify.equals(mPassword)){
+                Toast.makeText(UserRegistrationActivity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            insertUser();
+            startActivity(LoginActivity.loginActivityIntentFactory(getApplicationContext()));
         });
     }
 
     private void getUserInfoFromDisplay(){
         mUsername = binding.usernameInputEditText.getText().toString();
         mPassword = binding.passwordInputEditText.getText().toString();
+        mVerify = binding.passwordVerifyInputEditText.getText().toString();
     }
     public void insertUser(){
         User user = new User(mUsername, mPassword);
-        userRepository.insertUser(user);
+        repository.insertUser(user);
         Toast.makeText(this, "User Added", Toast.LENGTH_SHORT).show();
+    }
+
+    static Intent userRegistrationActivityIntentFactory(Context context) {
+        return new Intent(context, UserRegistrationActivity.class);
     }
 }

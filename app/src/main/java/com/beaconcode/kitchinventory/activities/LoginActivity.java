@@ -33,9 +33,10 @@ public class LoginActivity extends AppCompatActivity {
         repository = UserRepository.getRepository(getApplication());
 
         // Set up the click listener for the login button
-        binding.btnLogin.setOnClickListener(v -> {
-            verifyUser();
-        });
+        binding.btnLogin.setOnClickListener(v -> verifyUser());
+
+        binding.btnCreateAccount.setOnClickListener(v -> startActivity(UserRegistrationActivity.userRegistrationActivityIntentFactory(getApplicationContext()))
+        );
     }
 
     /**
