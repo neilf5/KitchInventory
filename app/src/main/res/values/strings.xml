@@ -29,4 +29,7 @@
     <string name="enter_the_item_you_want_to_delete">Enter the item you want to delete.</string>
     <string name="delete2">DELETE!</string>
     <string name="go_home">Go Home</string>
+    <string name="add_to_my_kitchinvetory">Add to my KitchInvetory</string>
+    <string name="go_to_shopping_list">Go to Shopping List</string>
+    <string name="enter_item_you_want_to_transfer_from_your_shopping_list">Enter item you want to transfer from your shopping list</string>
 </resources>
