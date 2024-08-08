@@ -76,7 +76,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
  * @param context The context from which the activity is started.
  * @return An Intent to start CookActivity.
  */
-static Intent cookActivityIntentFactory(Context context) {
+public static Intent cookActivityIntentFactory(Context context) {
     return new Intent(context, CookActivity.class);
 }
 

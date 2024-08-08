@@ -125,7 +125,7 @@ public class KitchenActivity extends BaseActivity {
      * @param context The context from which the activity is started.
      * @return An Intent to start KitchenActivity.
      */
-    static Intent kitchenActivityIntentFactory(Context context) {
+    public static Intent kitchenActivityIntentFactory(Context context) {
         return new Intent(context, KitchenActivity.class);
     }
 }

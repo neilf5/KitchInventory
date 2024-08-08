@@ -66,7 +66,7 @@ public class ShoppingListAddActivity extends BaseActivity {
 
     }
 
-    static Intent shoppingListAddActivityIntentFactory(Context context) {
+    public static Intent shoppingListAddActivityIntentFactory(Context context) {
         return new Intent(context, ShoppingListAddActivity.class);
     }
 

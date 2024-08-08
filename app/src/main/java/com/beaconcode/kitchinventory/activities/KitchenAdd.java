@@ -103,7 +103,7 @@ public class KitchenAdd extends BaseActivity {
     }
 
 
-    static Intent kitchenAddActivityIntentFactory(Context context) {
+    public static Intent kitchenAddActivityIntentFactory(Context context) {
         return new Intent(context, KitchenAdd.class);
     }
 }
