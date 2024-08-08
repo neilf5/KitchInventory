@@ -32,7 +32,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
-    private ShoppingListRepository shoppingListRepository;
+    private KitchenRepository shoppingListRepository;
     private RecyclerView recyclerView;
 
     @Override
@@ -43,7 +43,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
         recyclerView = binding.shoppingListRecyclerView;
 
-        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
+        shoppingListRepository = KitchenRepository.getRepository(getApplication());
 
         recyclerViewSetup();
 
@@ -61,8 +61,8 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
                 if (quantity > 0)
                 {
                     //UPDATED THIS LINE TO INCLUDE NEW USERID PARAMETER
-                    ShoppingList kitchen = new ShoppingList(name, quantity, getLoggedInUserId());
-                    shoppingListRepository.insertShoppingList(kitchen);
+                    Kitchen kitchen = new Kitchen(name, quantity, getLoggedInUserId());
+                    shoppingListRepository.insertKitchen(kitchen);
                 }
 
                 //doesn't always work :/
@@ -85,7 +85,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
               //  Kitchen kitchen = new Kitchen(name, quantity);
               //  shoppingListRepository.delete(kitchen);
-                shoppingListRepository.clearShoppingListByUserId(getLoggedInUserId());
+                shoppingListRepository.deleteByFoodName(name);
 
                // setUpFoodList();
                 shoppingList.clear();
@@ -99,12 +99,12 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
      private void recyclerViewSetup(){
          setUpFoodList();
-         //getFoodList();
+         getFoodList();
          ShoppingListAdapter adapter = new ShoppingListAdapter(ShoppingListActivity.this, shoppingList, ShoppingListActivity.this);
          recyclerView.setAdapter(adapter);
          recyclerView.setLayoutManager(new LinearLayoutManager(null));
      }
-/**
+
     private void getFoodList() {
         LiveData<List<String>> userObserver = shoppingListRepository.getFoodList();
         userObserver.observe(this, list -> {
@@ -114,7 +114,6 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
             }
         });
     }
- **/
 
     /**
      * Sets up the list of food items to be displayed in the RecyclerView.
@@ -123,7 +122,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
      */
     private void setUpFoodList() {
         try {
-            for (ShoppingList food : shoppingListRepository.getAllShoppingList()) {
+            for (Kitchen food : shoppingListRepository.getAllLogs()) {
                 shoppingList.add(food.getName());
             }
         } catch (Exception e) {

@@ -37,16 +37,14 @@ public class KitchenAdd extends BaseActivity {
             Intent intent = KitchenActivity.kitchenActivityIntentFactory(getApplicationContext());
             String enteredFoodItem = binding.userShopListInput.getText().toString();
 
-            Toast.makeText(KitchenAdd.this, "Why did you enter " + enteredFoodItem, Toast.LENGTH_SHORT).show();
-            //causes crash, maybe because there's nothing in shoppinglist table?
 
-                if (shoppingListRepository.getAllShoppingList().size() <= 0) {
-                Toast.makeText(KitchenAdd.this, "EMPTY", Toast.LENGTH_SHORT).show();
+                if (shoppingListRepository.getAllShoppingList().isEmpty()) {
+               return;
             }
 
             for (ShoppingList shoppinglist : shoppingListRepository.getAllShoppingList()) {
                 if (shoppinglist.getName().equals(enteredFoodItem) && getLoggedInUserId() == shoppinglist.getUserId()) {
-                    Toast.makeText(KitchenAdd.this, "Food found! Adding to your list!", Toast.LENGTH_SHORT).show();
+
 
                     //add found food from shopping list over to kitchen's list
                     Kitchen kitchen = new Kitchen(shoppinglist.getName(), shoppinglist.getQuantity(), shoppinglist.getUserId());
@@ -55,7 +53,7 @@ public class KitchenAdd extends BaseActivity {
                     startActivity(intent);
 
                 } else {
-                    Toast.makeText(KitchenAdd.this, "Food item not found in your shopping list D:", Toast.LENGTH_SHORT).show();
+                   return;
                 }
             }
 
