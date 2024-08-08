@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -39,12 +40,12 @@ public class UserTableTest {
 
     @Before
     public void setUp() {
+        user1 = new User("TestingUser1", "TestingPassword1");
+        user2 = new User("TestingUser2", "TestingPassword2");
         Application application = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(application, KitchenDatabase.class).build();
         db.clearAllTables();
         userDAO = db.userDAO();
-        user1 = new User("TestingUser1", "TestingPassword1");
-        user2 = new User("TestingUser2", "TestingPassword2");
         assertEquals(0, db.userDAO().getAllUsers().size());
     }
 
@@ -55,9 +56,35 @@ public class UserTableTest {
 
     @Test
     public void testInsertUser() {
+        assertEquals(0, db.userDAO().getAllUsers().size());
         userDAO.insert(user1);
         List<User> listUsers = db.userDAO().getAllUsers();
         User fetchedUser = listUsers.get(0);
         assertEquals(user1.getUsername(), fetchedUser.getUsername());
-        }
+    }
+
+    @Test
+    public void testDeleteUser() {
+        db.clearAllTables();
+        userDAO.insert(user1);
+        userDAO.insert(user2);
+        assertEquals(2, db.userDAO().getAllUsers().size());
+        List<User> listUsers = db.userDAO().getAllUsers();
+        User insertedUser1 = listUsers.get(0);
+        userDAO.delete(insertedUser1);
+        assertEquals(1, db.userDAO().getAllUsers().size());
+    }
+
+    @Test
+    public void testUpdateUser() {
+        userDAO.insert(user1);
+        List<User> listUsers = db.userDAO().getAllUsers();
+        User fetchedUser = listUsers.get(0);
+        fetchedUser.setUsername("UpdatedUsername");
+        userDAO.update(fetchedUser);
+        List<User> updatedListUsers = db.userDAO().getAllUsers();
+        User updatedUser = updatedListUsers.get(0);
+        assertEquals("UpdatedUsername", updatedUser.getUsername());
+    }
+
 }
