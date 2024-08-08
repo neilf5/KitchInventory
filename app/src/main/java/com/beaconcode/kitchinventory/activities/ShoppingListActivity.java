@@ -29,7 +29,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
-    private ShoppingListRepository shoppingListRepository2;
+    private ShoppingListRepository shoppingListRepository;
     private RecyclerView recyclerView;
 
     @Override
@@ -40,52 +40,37 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
         recyclerView = binding.shoppingListRecyclerView;
 
-        shoppingListRepository2 = ShoppingListRepository.getRepository(getApplication());
+        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
         recyclerViewSetup();
+
 
         binding.addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = binding.itemName.getText().toString();
-                int quantity = 0;
-                try {
-                    quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
-                } catch (NumberFormatException e) {
-                    Toast.makeText(ShoppingListActivity.this, "Plz enter a valid number", Toast.LENGTH_SHORT).show();;
-                }
-
-                if (quantity > 0)
-                {
-                    //UPDATED THIS LINE TO INCLUDE NEW USERID PARAMETER
-                    ShoppingList item = new ShoppingList(name, quantity, getLoggedInUserId());
-                    shoppingListRepository2.insertShoppingList(item);
-
-                }
-
-                //doesn't always work :/
-                shoppingList.clear(); // IDK why but these lines need to be called twice
-                recyclerViewSetup();  // Otherwise the recyclerview will print the items
-                shoppingList.clear();  // That were stored previously, as well as the items
-                recyclerViewSetup();  // That are being added when button is clicked
-                binding.itemName.getText().clear();
-                binding.itemQuantity.getText().clear();
-
+                Intent intent = ShoppingListAddActivity.shoppingListAddActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+               // //doesn't always work :/
+               // shoppingList.clear(); // IDK why but these lines need to be called twice
+               // recyclerViewSetup();  // Otherwise the recyclerview will print the items
+               // shoppingList.clear();  // That were stored previously, as well as the items
+               // recyclerViewSetup();  // That are being added when button is clicked
+               // binding.itemName.getText().clear();
+               // binding.itemQuantity.getText().clear();
             }
         });
 
         binding.deleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = binding.itemName.getText().toString();
+              Intent intent = ShoppingListDeleteActivity.shoppingListDeleteActivityIntentFactory(getApplicationContext());
+              startActivity(intent);
 
-                shoppingListRepository2.deleteByFoodName(name);
-
-                // setUpFoodList();
-                shoppingList.clear();
-                recyclerViewSetup();
-                shoppingList.clear();
-                recyclerViewSetup();
+              //// setUpFoodList();
+              //shoppingList.clear();
+              //recyclerViewSetup();
+              //shoppingList.clear();
+              //recyclerViewSetup();
 
             }
         });
@@ -100,7 +85,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
     }
 
     private void getFoodList() {
-        LiveData<List<String>> userObserver = shoppingListRepository2.getFoodList();
+        LiveData<List<String>> userObserver = shoppingListRepository.getFoodList();
         userObserver.observe(this, list -> {
             this.shoppingList = (ArrayList<String>) list;
             if (list != null) {
@@ -116,7 +101,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
      */
     private void setUpFoodList() {
         try {
-            for (ShoppingList food : shoppingListRepository2.getAllLogs()) {
+            for (ShoppingList food : shoppingListRepository.getAllShoppingList()) {
                 shoppingList.add(food.getName());
             }
         } catch (Exception e) {

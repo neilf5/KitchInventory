@@ -47,7 +47,7 @@ public class ShoppingListRepository {
         return null;
     }
 
-    public ArrayList<ShoppingList> getAllLogs() {
+    public ArrayList<ShoppingList> getAllShoppingList() {
         Future<ArrayList<ShoppingList>> future = KitchenDatabase.databaseWriteExecutor.submit(
                 new Callable<ArrayList<ShoppingList>>() {
                     @Override
@@ -93,4 +93,5 @@ public class ShoppingListRepository {
     public LiveData<List<String>> getFoodList() {
         return shoppingListDAO.getFoodList();
     }
+
 }
