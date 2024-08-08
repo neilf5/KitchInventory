@@ -42,7 +42,7 @@ public interface KitchenDAO {
      * Selects all rows from the database
      */
     @Query("SELECT * from " + KitchenDatabase.KITCHEN_TABLE)
-    List<Kitchen> getAllRecords();
+    List<Kitchen> getAllKitchens();
 
     @Query("SELECT name from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
     LiveData<List<String>> getFoodList();
@@ -61,4 +61,8 @@ public interface KitchenDAO {
 
     @Query("SELECT SUM(quantity) FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId = :userId")
     LiveData<Integer> getTotalQuantityByUserId(int userId);
+
+    @Query("UPDATE kitchen_table SET quantity = :quantity WHERE name = :foodName")
+    void updateQuantity(String foodName, int quantity);
+
 }

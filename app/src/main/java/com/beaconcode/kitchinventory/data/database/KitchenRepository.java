@@ -23,7 +23,7 @@ public class KitchenRepository {
     private KitchenRepository(Application application){
         KitchenDatabase db = KitchenDatabase.getDatabase(application);
         this.kitchenDAO = db.kitchenDAO();
-        this.allLogs = (ArrayList<Kitchen>) this.kitchenDAO.getAllRecords();
+        this.allLogs = (ArrayList<Kitchen>) this.kitchenDAO.getAllKitchens();
 
     }
 
@@ -72,7 +72,7 @@ public class KitchenRepository {
                 new Callable<ArrayList<Kitchen>>() {
                     @Override
                     public ArrayList<Kitchen> call() throws Exception {
-                        return (ArrayList<Kitchen>) kitchenDAO.getAllRecords();
+                        return (ArrayList<Kitchen>) kitchenDAO.getAllKitchens();
                     }
                 }
         );
@@ -110,5 +110,11 @@ public class KitchenRepository {
 
     public LiveData<Integer> getTotalQuantityByUserId(int userId) {
         return kitchenDAO.getTotalQuantityByUserId(userId);
+    }
+
+    public void updateQuantity(String foodName, int quantity) {
+        KitchenDatabase.databaseWriteExecutor.execute(() -> {
+            kitchenDAO.updateQuantity(foodName, quantity);
+        });
     }
 }
