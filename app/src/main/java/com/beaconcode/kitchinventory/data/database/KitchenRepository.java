@@ -112,4 +112,9 @@ public class KitchenRepository {
         return kitchenDAO.getTotalQuantityByUserId(userId);
     }
 
+    public void updateQuantity(String foodName, int quantity) {
+        KitchenDatabase.databaseWriteExecutor.execute(() -> {
+            kitchenDAO.updateQuantity(foodName, quantity);
+        });
+    }
 }

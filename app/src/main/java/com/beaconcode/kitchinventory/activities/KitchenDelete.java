@@ -75,7 +75,7 @@ public class KitchenDelete extends BaseActivity {
                     Toast.makeText(KitchenDelete.this, "The number you entered is too big", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    kitchenFound.setQuantity(foundQuantity - enteredQuantity); //update quantity
+                    kitchenRepository.updateQuantity(enteredFood, foundQuantity - enteredQuantity); //update quantity
                     Toast.makeText(KitchenDelete.this, "Some of your food is now gone :(", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                 }
