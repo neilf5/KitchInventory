@@ -21,7 +21,6 @@ public class ShoppingList {
 
     private String name;
     private int quantity;
-    private double price;
 
     public ShoppingList(String name, int quantity, int userId) {
         this.name = name;
@@ -82,13 +81,7 @@ public class ShoppingList {
         this.quantity = quantity;
     }
 
-    public double getPrice() {
-        return price;
-    }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }
 
 
