@@ -49,11 +49,18 @@ public class UserRegistrationActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method pulls the text from the screen to facilitate the checks correctly entered fields
+     */
     private void getUserInfoFromDisplay(){
         mUsername = binding.usernameInputEditText.getText().toString();
         mPassword = binding.passwordInputEditText.getText().toString();
         mVerify = binding.passwordVerifyInputEditText.getText().toString();
     }
+
+    /**
+     * This method calls the repository's insertUser method.
+     */
     public void insertUser(){
         User user = new User(mUsername, mPassword);
         repository.insertUser(user);
