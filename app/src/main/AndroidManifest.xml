@@ -21,6 +21,9 @@
             android:name=".activities.KitchenDelete"
             android:exported="false" />
         <activity
+            android:name=".activities.KitchenDelete"
+            android:exported="false" />
+        <activity
             android:name=".activities.BaseActivity"
             android:exported="false" />
         <activity
@@ -43,6 +46,12 @@
             android:exported="false" />
         <activity
             android:name=".activities.ShoppingListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ShoppingListAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ShoppingListDeleteActivity"
             android:exported="false" />
         <activity
             android:name=".activities.LoginActivity"

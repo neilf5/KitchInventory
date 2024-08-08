@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ShoppingListDeleteActivity">
+
+    <TextView
+        android:id="@+id/shoppingDeleteTitle"
+        android:text="@string/delete_items"
+        android:textSize="32sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <Button
+        android:id="@+id/deleteItemButton"
+        android:layout_marginTop="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_item"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@id/shoppingDeleteTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:text="@string/back"
+        android:textSize="14sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/shoppingDeleteTitle"
+        />
+
+    <EditText
+        android:id="@+id/itemName"
+        android:labelFor="@id/itemName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_item_name"
+        android:textSize="22sp"
+        android:inputType="text"
+        android:importantForAutofill="no"
+        app:layout_constraintTop_toBottomOf="@id/deleteItemButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        />
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
