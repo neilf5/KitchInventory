@@ -6,24 +6,36 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.database.KitchenRepository;
-import com.beaconcode.kitchinventory.databinding.ActivityShoppingListBinding;
+import com.beaconcode.kitchinventory.databinding.ActivityKitchenBinding;
+
 
 import java.util.ArrayList;
+
 
 /**
  * This activity will display the current items in the user's kitchen inventory from the database.
  */
 public class KitchenActivity extends BaseActivity {
 
+    private ArrayList<String> kitchenInventory = new ArrayList<>();
+    private ActivityKitchenBinding binding;
+    private KitchenRepository kitchenRepository;
+    private RecyclerView recyclerView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kitchen);
+        binding = ActivityKitchenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        recyclerView = binding.kitchenDisplayRecyclerView;
+
+        kitchenRepository = KitchenRepository.getRepository(getApplication());
     }
 
     /**
