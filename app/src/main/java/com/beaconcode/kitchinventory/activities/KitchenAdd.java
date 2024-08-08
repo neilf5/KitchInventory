@@ -24,6 +24,15 @@ public class KitchenAdd extends BaseActivity {
         binding = ActivityKitchenAddBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.addToKitchenButton.setOnClickListener(v -> {
+
+        });
+
+        binding.goToShoppingListButton.setOnClickListener(v -> {
+            Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());
+            startActivity(intent);
+        });
+
     }
 
     static Intent kitchenAddActivityIntentFactory(Context context) {
