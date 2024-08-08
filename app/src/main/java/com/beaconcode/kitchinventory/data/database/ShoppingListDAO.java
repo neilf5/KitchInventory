@@ -41,7 +41,7 @@ public interface ShoppingListDAO {
      * display all entries in database
      */
     @Query("SELECT * from " + KitchenDatabase.SHOPPING_LIST_TABLE)
-    List<ShoppingList> getAllRecords();
+    List<ShoppingList> getAllShoppingList();
 
     @Query("SELECT name from " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE quantity > 0")
     LiveData<List<String>> getFoodList();

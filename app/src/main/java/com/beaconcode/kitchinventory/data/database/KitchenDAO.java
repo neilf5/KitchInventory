@@ -42,7 +42,7 @@ public interface KitchenDAO {
      * Selects all rows from the database
      */
     @Query("SELECT * from " + KitchenDatabase.KITCHEN_TABLE)
-    List<Kitchen> getAllRecords();
+    List<Kitchen> getAllKitchens();
 
     @Query("SELECT name from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
     LiveData<List<String>> getFoodList();

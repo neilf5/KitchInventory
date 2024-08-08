@@ -95,4 +95,5 @@ public class Kitchen {
     public void setPrice(double price) {
         this.price = price;
     }
+
 }
