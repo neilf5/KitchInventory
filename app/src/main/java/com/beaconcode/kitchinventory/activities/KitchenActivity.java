@@ -53,6 +53,11 @@ public class KitchenActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        binding.kitchenGoHomeButton.setOnClickListener(v -> {
+            Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+            startActivity(intent);
+        });
+
 
     }
 

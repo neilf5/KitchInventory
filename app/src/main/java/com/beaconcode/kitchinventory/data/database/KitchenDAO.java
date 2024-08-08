@@ -61,4 +61,5 @@ public interface KitchenDAO {
 
     @Query("SELECT SUM(quantity) FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId = :userId")
     LiveData<Integer> getTotalQuantityByUserId(int userId);
+
 }
