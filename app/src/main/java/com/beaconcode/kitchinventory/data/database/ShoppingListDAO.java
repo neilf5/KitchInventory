@@ -1,5 +1,6 @@
 package com.beaconcode.kitchinventory.data.database;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -33,5 +34,8 @@ public interface ShoppingListDAO {
 
     @Query("DELETE from " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE userId = :userId")
     void clearShoppingListByUserId(int userId);
+
+    @Query("SELECT SUM(quantity) FROM " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE userId = :userId")
+    LiveData<Integer> getTotalQuantityByUserId(int userId);
 }
 

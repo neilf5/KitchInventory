@@ -18,6 +18,8 @@ import java.util.List;
 @Dao
 public interface KitchenDAO {
 
+
+
     /**
      * inserts Kitchen objects into the database
      */
@@ -56,4 +58,7 @@ public interface KitchenDAO {
 
     @Query("DELETE from " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId == :userId")
     void clearKitchenByUserId(int userId);
+
+    @Query("SELECT SUM(quantity) FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId = :userId")
+    LiveData<Integer> getTotalQuantityByUserId(int userId);
 }

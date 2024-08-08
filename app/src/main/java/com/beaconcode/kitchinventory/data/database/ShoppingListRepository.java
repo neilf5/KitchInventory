@@ -3,6 +3,8 @@ package com.beaconcode.kitchinventory.data.database;
 import android.app.Application;
 import android.util.Log;
 
+import androidx.lifecycle.LiveData;
+
 import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
 
@@ -18,15 +20,15 @@ public class ShoppingListRepository {
 
     private static ShoppingListRepository repository;
 
-    private ShoppingListRepository(Application application){
+    private ShoppingListRepository(Application application) {
         KitchenDatabase db = KitchenDatabase.getDatabase(application);
         this.shoppingListDAO = db.shoppingListDAO();
         this.allLogs = (ArrayList<ShoppingList>) this.shoppingListDAO.getAllRecords();
 
     }
 
-    public static ShoppingListRepository getRepository(Application application){
-        if (repository != null){
+    public static ShoppingListRepository getRepository(Application application) {
+        if (repository != null) {
             return repository;
         }
         Future<ShoppingListRepository> future = KitchenDatabase.databaseWriteExecutor.submit(
@@ -37,10 +39,10 @@ public class ShoppingListRepository {
                     }
                 }
         );
-        try{
+        try {
             return future.get();
-        }catch (InterruptedException | ExecutionException e){
-            Log.d("DB","Problem getting ShoppingListRepository, thread error.");
+        } catch (InterruptedException | ExecutionException e) {
+            Log.d("DB", "Problem getting ShoppingListRepository, thread error.");
         }
         return null;
     }
@@ -54,25 +56,29 @@ public class ShoppingListRepository {
                     }
                 }
         );
-        try{
+        try {
             return future.get();
-        }catch (InterruptedException | ExecutionException e){
+        } catch (InterruptedException | ExecutionException e) {
             Log.i("DB", "Problem when getting all Shopping Lists in the repository");
         }
         return null;
     }
 
-    public void insertShoppingList(ShoppingList shoppingList){
-        KitchenDatabase.databaseWriteExecutor.execute(()->
+    public void insertShoppingList(ShoppingList shoppingList) {
+        KitchenDatabase.databaseWriteExecutor.execute(() ->
         {
             shoppingListDAO.insert(shoppingList);
         });
     }
 
-    public void clearShoppingListByUserId(int userId){
-        KitchenDatabase.databaseWriteExecutor.execute(()->
+    public void clearShoppingListByUserId(int userId) {
+        KitchenDatabase.databaseWriteExecutor.execute(() ->
         {
             shoppingListDAO.clearShoppingListByUserId(userId);
         });
+    }
+
+    public LiveData<Integer> getTotalQuantityByUserId(int userId) {
+        return shoppingListDAO.getTotalQuantityByUserId(userId);
     }
 }
