@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/shoppingAddTitle"
-        android:text="@string/add_an_item"
+        android:text="@string/add_items"
         android:textSize="32sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
