@@ -48,6 +48,10 @@ public class KitchenActivity extends BaseActivity {
 
         recyclerViewSetup();
 
+        binding.kitchenDeleteButton.setOnClickListener(v -> {
+            Intent intent = KitchenDelete.kitchenDeleteActivitiyIntentFactory(getApplicationContext());
+            startActivity(intent);
+        });
 
 
     }
