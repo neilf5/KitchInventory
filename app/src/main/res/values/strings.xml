@@ -19,4 +19,5 @@
     <string name="enter_item_name">Enter Item Name</string>
     <string name="preference_file_key">PreferenceFileNameKitchInventory</string>
     <string name="preference_userId_key">PreferenceUserIdKeyKitchInventory</string>
+    <string name="your_kitchinventory">YOUR KITCHINVENTORY</string>
 </resources>
