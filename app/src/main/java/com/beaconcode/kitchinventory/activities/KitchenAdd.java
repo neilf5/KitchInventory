@@ -26,6 +26,7 @@ public class KitchenAdd extends BaseActivity {
     private ShoppingListRepository shoppingListRepository;
     private KitchenRepository kitchenRepository;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,13 @@ public class KitchenAdd extends BaseActivity {
 
         binding.addToKitchenButton.setOnClickListener(v -> {
             String enteredFoodItem = binding.userShopListInput.getText().toString();
+
+            Toast.makeText(KitchenAdd.this, "Why did you enter " + enteredFoodItem, Toast.LENGTH_SHORT).show();
+            /*  causes crash, maybe because there's nothing in shoppinglist table?
+
+                if (shoppingListRepository.getAllShoppingList().size() <= 0) {
+                Toast.makeText(KitchenAdd.this, "EMPTY", Toast.LENGTH_SHORT).show();
+            }
 
             for (ShoppingList shoppinglist : shoppingListRepository.getAllShoppingList()) {
                 if (shoppinglist.getName().equals(enteredFoodItem) && getLoggedInUserId() == shoppinglist.getUserId()) {
@@ -48,8 +56,10 @@ public class KitchenAdd extends BaseActivity {
 
                 Toast.makeText(KitchenAdd.this, "Food item not found in your shopping list D:", Toast.LENGTH_SHORT).show();
             }
+             */
 
         });
+
 
         binding.goToShoppingListButton.setOnClickListener(v -> {
             Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());
