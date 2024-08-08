@@ -58,6 +58,11 @@ public class KitchenActivity extends BaseActivity {
             startActivity(intent);
         });
 
+        binding.kitchenAddButton.setOnClickListener(v -> {
+            Intent intent = KitchenAdd.kitchenAddActivityIntentFactory(getApplicationContext());
+            startActivity(intent);
+        });
+
 
     }
 
