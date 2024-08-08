@@ -16,7 +16,6 @@ import com.beaconcode.kitchinventory.data.database.KitchenRepository;
 import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.databinding.ActivityKitchenBinding;
 import com.beaconcode.kitchinventory.ui.adapters.KitchenAdapter;
-import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
 
 
 import java.util.ArrayList;
