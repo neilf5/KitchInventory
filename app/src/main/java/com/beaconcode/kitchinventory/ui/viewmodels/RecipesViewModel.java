@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.beaconcode.kitchinventory.data.model.Meal;
 import com.beaconcode.kitchinventory.data.model.Meals;
-import com.beaconcode.kitchinventory.utils.RecipeServiceHelper;
+import com.beaconcode.kitchinventory.data.api.RecipeServiceHelper;
 
 import java.util.List;
 
