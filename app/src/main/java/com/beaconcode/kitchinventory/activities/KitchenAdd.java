@@ -31,10 +31,15 @@ public class KitchenAdd extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityKitchenAddBinding.inflate(getLayoutInflater());
+        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
+        kitchenRepository = KitchenRepository.getRepository(getApplication());
+        Intent intent = KitchenActivity.kitchenActivityIntentFactory(getApplicationContext());
+
         setContentView(binding.getRoot());
 
-        binding.addToKitchenButton.setOnClickListener(v -> {
-            Intent intent = KitchenActivity.kitchenActivityIntentFactory(getApplicationContext());
+        //add from shopping list, doesn't work
+        binding.addFromShoppingListButton.setOnClickListener(v -> {
+
             String enteredFoodItem = binding.userShopListInput.getText().toString();
 
 
@@ -56,14 +61,37 @@ public class KitchenAdd extends BaseActivity {
                    return;
                 }
             }
+        });
 
+        //add on your own
+        binding.addToKitchenButton.setOnClickListener(v -> {
+            String enteredFoodItem = binding.userShopListInput.getText().toString();
+            int enteredQuantity = 0;
+
+            try {
+                enteredQuantity = Integer.parseInt(binding.userShopListQuantityInput.getText().toString());
+            } catch (NumberFormatException e) {
+                Toast.makeText(KitchenAdd.this, "Invalid number", Toast.LENGTH_SHORT).show();
+            }
+
+            //negative or 0
+            if (enteredQuantity <= 0) {
+                Toast.makeText(KitchenAdd.this, "Quantity cannot be less than or equal to 0", Toast.LENGTH_SHORT).show();
+            } else if (enteredFoodItem.isEmpty()) {
+                Toast.makeText(KitchenAdd.this, "Food item not found", Toast.LENGTH_SHORT).show();
+            } else {
+                Kitchen newKitchenItem = new Kitchen(enteredFoodItem, enteredQuantity, getLoggedInUserId());
+                kitchenRepository.insertKitchen(newKitchenItem);
+                Toast.makeText(KitchenAdd.this, "Added new food item to your KitchInventory!", Toast.LENGTH_SHORT).show();
+                startActivity(intent);
+
+            }
 
         });
 
-
         binding.goToShoppingListButton.setOnClickListener(v -> {
-            Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());
-            startActivity(intent);
+            Intent intentShop = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());
+            startActivity(intentShop);
         });
 
     }

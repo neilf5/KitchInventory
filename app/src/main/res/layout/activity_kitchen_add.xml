@@ -13,7 +13,7 @@
         android:layout_height="87dp"
         android:textSize="25sp"
         android:gravity="center"
-        android:text="@string/enter_item_you_want_to_transfer_from_your_shopping_list"
+        android:text="@string/enter_item_you_want_to_add_to_your_kitchinventory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -23,18 +23,30 @@
 
     <EditText
         android:id="@+id/userShopListInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="208dp"
+        android:layout_height="50dp"
         android:autofillHints="Item name"
         android:ems="10"
         android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.078"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addDescription"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintTop_toBottomOf="@+id/addDescription"
+        app:layout_constraintVertical_bias="0.131" />
+
+    <EditText
+        android:id="@+id/userShopListQuantityInput"
+        android:layout_width="118dp"
+        android:layout_height="50dp"
+        android:autofillHints="Quantity"
+        android:ems="10"
+        android:inputType="text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/userShopListInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.921"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor" />
 
     <Button
         android:id="@+id/addToKitchenButton"
@@ -49,6 +61,18 @@
         app:layout_constraintVertical_bias="0.151" />
 
     <Button
+        android:id="@+id/addFromShoppingListButton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:text="@string/add_from_my_shopping_list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addToKitchenButton"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <Button
         android:id="@+id/goToShoppingListButton"
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -57,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addToKitchenButton"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintTop_toBottomOf="@+id/addFromShoppingListButton"
+        app:layout_constraintVertical_bias="0.165" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
