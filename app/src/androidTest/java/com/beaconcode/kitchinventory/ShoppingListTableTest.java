@@ -29,8 +29,8 @@ public class ShoppingListTableTest {
 
     @Before
     public void setUp() {
-        shoppingList1 = new ShoppingList("Red Pepper", 1);
-        shoppingList2 = new ShoppingList("Gorgonzola", 1);
+        shoppingList1 = new ShoppingList("Red Pepper", 1,1);
+        shoppingList2 = new ShoppingList("Gorgonzola", 1,1);
         Application application = ApplicationProvider.getApplicationContext();
         db = Room.inMemoryDatabaseBuilder(application, KitchenDatabase.class).build();
         db.clearAllTables();
