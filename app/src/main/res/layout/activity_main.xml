@@ -35,4 +35,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_kitchen" />
+
+    <TextView
+        android:id="@+id/shoppingListQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_shoppingList"
+        app:layout_constraintStart_toEndOf="@id/btn_shoppingList"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="2dp"
+        />
+    <TextView
+        android:id="@+id/inventoryListQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_kitchen"
+        app:layout_constraintStart_toEndOf="@id/btn_kitchen"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="2dp"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

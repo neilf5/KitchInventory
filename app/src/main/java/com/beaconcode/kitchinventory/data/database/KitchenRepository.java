@@ -95,4 +95,8 @@ public class KitchenRepository {
             kitchenDAO.clearKitchenByUserId(userId);
         });
     }
+
+    public LiveData<Integer> getTotalQuantityByUserId(int userId) {
+        return kitchenDAO.getTotalQuantityByUserId(userId);
+    }
 }
