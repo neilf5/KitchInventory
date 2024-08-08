@@ -5,21 +5,92 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
+import com.beaconcode.kitchinventory.data.database.KitchenRepository;
+import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
+import com.beaconcode.kitchinventory.databinding.ActivityKitchenBinding;
+import com.beaconcode.kitchinventory.ui.adapters.KitchenAdapter;
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * This activity will display the current items in the user's kitchen inventory from the database.
  */
+
+
 public class KitchenActivity extends BaseActivity {
+
+    private ArrayList<Kitchen> kitchenList = new ArrayList<>();
+    private ArrayList<String> foodList = new ArrayList<>();
+    private ActivityKitchenBinding binding;
+    private KitchenRepository kitchenRepository;
+    private RecyclerView recyclerView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_kitchen);
+        binding = ActivityKitchenBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        recyclerView = binding.kitchenDisplayRecyclerView;
+
+        kitchenRepository = KitchenRepository.getRepository(getApplication());
+
+        recyclerViewSetup();
+
+
+
+    }
+
+
+    private void recyclerViewSetup(){
+        setUpLists();
+        getFoodList();
+
+        KitchenAdapter adapter = new KitchenAdapter(KitchenActivity.this, kitchenList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
+    }
+
+
+    private void getFoodList() {
+        LiveData<List<String>> userObserver = kitchenRepository.getFoodList();
+        userObserver.observe(this, list -> {
+            this.foodList = (ArrayList<String>) list;
+            if (list != null) {
+                invalidateOptionsMenu();
+            }
+        });
+    }
+
+    private void setUpLists() {
+        try {
+            for (Kitchen kitchens : kitchenRepository.getAllLogs()) {
+                kitchenList.add(kitchens);
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Could not add to kitchen list", Toast.LENGTH_SHORT).show();
         }
+
+        try {
+            for (Kitchen food : kitchenRepository.getAllLogs()) {
+                foodList.add(food.getName());
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Could not add to kitchen list", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     /**
      * Initializes the contents of the Activity's standard options menu.

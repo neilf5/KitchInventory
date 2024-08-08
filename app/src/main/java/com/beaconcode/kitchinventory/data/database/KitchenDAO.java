@@ -47,8 +47,14 @@ public interface KitchenDAO {
     @Query("SELECT name from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
     LiveData<List<String>> getFoodList();
 
+    @Query("SELECT quantity from " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity > 0")
+    LiveData<List<Integer>> getQuantityList();
+
     @Query("DELETE FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE name == :foodName")
     void deleteByFoodName(String foodName);
+
+    @Query("DELETE FROM " + KitchenDatabase.KITCHEN_TABLE + " WHERE quantity == :quantityName")
+    void deleteByQuantityName(Integer quantityName);
 
     @Query("DELETE from " + KitchenDatabase.KITCHEN_TABLE + " WHERE userId == :userId")
     void clearKitchenByUserId(int userId);
