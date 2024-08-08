@@ -29,7 +29,7 @@ public interface UserDAO {
     void delete(User users);
 
     @Query("SELECT * from " + KitchenDatabase.USER_TABLE)
-    List<User> getAllRecords();
+    List<User> getAllUsers();
 
     @Query("SELECT * from " + KitchenDatabase.USER_TABLE + " WHERE username = :username")
     LiveData<User> getUserByUsername(String username);

@@ -24,7 +24,7 @@ public class UserRepository {
     private UserRepository(Application application){
         KitchenDatabase db = KitchenDatabase.getDatabase(application);
         this.userDAO = db.userDAO();
-        this.allLogs = (ArrayList<User>) this.userDAO.getAllRecords();
+        this.allLogs = (ArrayList<User>) this.userDAO.getAllUsers();
 
     }
 
@@ -48,14 +48,9 @@ public class UserRepository {
         return null;
     }
 
-    public ArrayList<User> getAllLogs() {
+    public ArrayList<User> getAllUsers() {
         Future<ArrayList<User>> future = KitchenDatabase.databaseWriteExecutor.submit(
-                new Callable<ArrayList<User>>() {
-                    @Override
-                    public ArrayList<User> call() throws Exception {
-                        return (ArrayList<User>) userDAO.getAllRecords();
-                    }
-                }
+                () -> (ArrayList<User>) userDAO.getAllUsers()
         );
         try{
             return future.get();
