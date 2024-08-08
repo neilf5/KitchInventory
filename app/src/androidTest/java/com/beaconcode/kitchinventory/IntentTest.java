@@ -1,14 +1,18 @@
 package com.beaconcode.kitchinventory;
 
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.intent.Intents.intended;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
 
 import android.content.Context;
 import android.content.Intent;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.espresso.intent.Intents;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.beaconcode.kitchinventory.activities.CookActivity;
@@ -24,10 +28,10 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(AndroidJUnit4.class)
-public class MainActivityTest {
+public class IntentTest {
 
     @Rule
-    public IntentsTestRule<MainActivity> intentsTestRule = new IntentsTestRule<>(MainActivity.class);
+    public ActivityScenarioRule<MainActivity> activityScenarioRule = new ActivityScenarioRule<>(MainActivity.class);
 
     @Before
     public void setUp() {
@@ -41,9 +45,11 @@ public class MainActivityTest {
 
     @Test
     public void testMainActivityIntentFactory() {
-        Context context = ApplicationProvider.getApplicationContext();
-        Intent intent = MainActivity.mainActivityIntentFactory(context);
-        intentsTestRule.launchActivity(intent);
+        // Fill in the login fields
+        onView(withId(R.id.et_usernameLogin)).perform(replaceText("testuser1"));
+        onView(withId(R.id.et_passwordLogin)).perform(replaceText("testuser1"));
+        // Click the login button, starts the main activity using the main activity intent factory
+        onView(withId(R.id.btn_login)).perform(click());
         intended(hasComponent(MainActivity.class.getName()));
     }
 
@@ -51,7 +57,7 @@ public class MainActivityTest {
     public void testCookActivityIntentFactory() {
         Context context = ApplicationProvider.getApplicationContext();
         Intent intent = CookActivity.cookActivityIntentFactory(context);
-        intentsTestRule.launchActivity(intent);
+        activityScenarioRule.getScenario().onActivity(activity -> activity.startActivity(intent));
         intended(hasComponent(CookActivity.class.getName()));
     }
 
@@ -59,7 +65,7 @@ public class MainActivityTest {
     public void testKitchenActivityIntentFactory() {
         Context context = ApplicationProvider.getApplicationContext();
         Intent intent = KitchenActivity.kitchenActivityIntentFactory(context);
-        intentsTestRule.launchActivity(intent);
+        activityScenarioRule.getScenario().onActivity(activity -> activity.startActivity(intent));
         intended(hasComponent(KitchenActivity.class.getName()));
     }
 
@@ -67,7 +73,7 @@ public class MainActivityTest {
     public void testShoppingListActivityIntentFactory() {
         Context context = ApplicationProvider.getApplicationContext();
         Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(context);
-        intentsTestRule.launchActivity(intent);
+        activityScenarioRule.getScenario().onActivity(activity -> activity.startActivity(intent));
         intended(hasComponent(ShoppingListActivity.class.getName()));
     }
 }

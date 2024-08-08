@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity {
      * @param context The context from which the activity is started.
      * @return An Intent to start MainActivity.
      */
-    static Intent mainActivityIntentFactory(Context context) {
+    public static Intent mainActivityIntentFactory(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         return intent;
     }
