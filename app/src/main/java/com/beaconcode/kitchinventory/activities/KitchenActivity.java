@@ -48,6 +48,15 @@ public class KitchenActivity extends BaseActivity {
 
         recyclerViewSetup();
 
+        binding.kitchenDeleteButton.setOnClickListener(v -> {
+            Intent intent = KitchenDelete.kitchenDeleteActivitiyIntentFactory(getApplicationContext());
+            startActivity(intent);
+        });
+
+        binding.kitchenGoHomeButton.setOnClickListener(v -> {
+            Intent intent = MainActivity.mainActivityIntentFactory(getApplicationContext());
+            startActivity(intent);
+        });
 
 
     }
@@ -76,7 +85,9 @@ public class KitchenActivity extends BaseActivity {
     private void setUpLists() {
         try {
             for (Kitchen kitchens : kitchenRepository.getAllLogs()) {
-                kitchenList.add(kitchens);
+                if (kitchens.getUserId() == getLoggedInUserId()) { //ensures stored within same user
+                    kitchenList.add(kitchens);
+                }
             }
         } catch (Exception e) {
             Toast.makeText(this, "Could not add to kitchen list", Toast.LENGTH_SHORT).show();

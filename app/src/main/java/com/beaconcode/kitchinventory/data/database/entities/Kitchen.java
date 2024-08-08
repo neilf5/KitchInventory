@@ -26,6 +26,10 @@ public class Kitchen {
 
 
     //constructor
+    public Kitchen() {
+
+    }
+
     public Kitchen(String name, int quantity, int userId) {
         this.name = name;
         this.quantity = quantity;
