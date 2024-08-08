@@ -7,8 +7,13 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
+import com.beaconcode.kitchinventory.data.database.KitchenRepository;
+import com.beaconcode.kitchinventory.databinding.ActivityShoppingListBinding;
+
+import java.util.ArrayList;
 
 /**
  * This activity will display the current items in the user's kitchen inventory from the database.
@@ -19,7 +24,7 @@ public class KitchenActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_kitchen);
-        }
+    }
 
     /**
      * Initializes the contents of the Activity's standard options menu.

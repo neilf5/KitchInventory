@@ -20,4 +20,6 @@
     <string name="preference_file_key">PreferenceFileNameKitchInventory</string>
     <string name="preference_userId_key">PreferenceUserIdKeyKitchInventory</string>
     <string name="your_kitchinventory">YOUR KITCHINVENTORY</string>
+    <string name="add_from_shopping_list">Add from Shopping List</string>
+    <string name="delete">Delete</string>
 </resources>
