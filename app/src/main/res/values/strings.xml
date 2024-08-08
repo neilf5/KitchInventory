@@ -32,4 +32,6 @@
     <string name="back">back</string>
     <string name="add_an_item">add_an_item</string>
     <string name="delete_an_item">delete_an_item</string>
+    <string name="add_items">Add Items</string>
+    <string name="delete_items">Delete Items</string>
 </resources>
