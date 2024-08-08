@@ -29,4 +29,7 @@
     <string name="enter_the_item_you_want_to_delete">Enter the item you want to delete.</string>
     <string name="delete2">DELETE!</string>
     <string name="go_home">Go Home</string>
+    <string name="back">back</string>
+    <string name="add_an_item">add_an_item</string>
+    <string name="delete_an_item">delete_an_item</string>
 </resources>

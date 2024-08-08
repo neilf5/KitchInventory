@@ -8,15 +8,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
-import com.beaconcode.kitchinventory.data.database.KitchenRepository;
 import com.beaconcode.kitchinventory.data.database.ShoppingListRepository;
-import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
 import com.beaconcode.kitchinventory.databinding.ActivityShoppingListBinding;
 import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
@@ -32,7 +29,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
-    private KitchenRepository shoppingListRepository;
+    private ShoppingListRepository shoppingListRepository;
     private RecyclerView recyclerView;
 
     @Override
@@ -43,67 +40,49 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
         recyclerView = binding.shoppingListRecyclerView;
 
-        shoppingListRepository = KitchenRepository.getRepository(getApplication());
+        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
         recyclerViewSetup();
+
 
         binding.addItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = binding.itemName.getText().toString();
-                int quantity = 0;
-                try {
-                    quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
-                } catch (NumberFormatException e) {
-                    Toast.makeText(ShoppingListActivity.this, "Plz enter a valid number", Toast.LENGTH_SHORT).show();;
-                }
-
-                if (quantity > 0)
-                {
-                    //UPDATED THIS LINE TO INCLUDE NEW USERID PARAMETER
-                    Kitchen kitchen = new Kitchen(name, quantity, getLoggedInUserId());
-                    shoppingListRepository.insertKitchen(kitchen);
-                }
-
-                //doesn't always work :/
-                shoppingList.clear(); // IDK why but these lines need to be called twice
-                recyclerViewSetup();  // Otherwise the recyclerview will print the items
-                shoppingList.clear();  // That were stored previously, as well as the items
-                recyclerViewSetup();  // That are being added when button is clicked
-                binding.itemName.getText().clear();
-                binding.itemQuantity.getText().clear();
-
+                Intent intent = ShoppingListAddActivity.shoppingListAddActivityIntentFactory(getApplicationContext());
+                startActivity(intent);
+               // //doesn't always work :/
+               // shoppingList.clear(); // IDK why but these lines need to be called twice
+               // recyclerViewSetup();  // Otherwise the recyclerview will print the items
+               // shoppingList.clear();  // That were stored previously, as well as the items
+               // recyclerViewSetup();  // That are being added when button is clicked
+               // binding.itemName.getText().clear();
+               // binding.itemQuantity.getText().clear();
             }
         });
 
         binding.deleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = binding.itemName.getText().toString();
-               // int quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
+              Intent intent = ShoppingListDeleteActivity.shoppingListDeleteActivityIntentFactory(getApplicationContext());
+              startActivity(intent);
 
-
-              //  Kitchen kitchen = new Kitchen(name, quantity);
-              //  shoppingListRepository.delete(kitchen);
-                shoppingListRepository.deleteByFoodName(name);
-
-               // setUpFoodList();
-                shoppingList.clear();
-                recyclerViewSetup();
-                shoppingList.clear();
-                recyclerViewSetup();
+              //// setUpFoodList();
+              //shoppingList.clear();
+              //recyclerViewSetup();
+              //shoppingList.clear();
+              //recyclerViewSetup();
 
             }
         });
-     }
+    }
 
-     private void recyclerViewSetup(){
-         setUpFoodList();
-         getFoodList();
-         ShoppingListAdapter adapter = new ShoppingListAdapter(ShoppingListActivity.this, shoppingList, ShoppingListActivity.this);
-         recyclerView.setAdapter(adapter);
-         recyclerView.setLayoutManager(new LinearLayoutManager(null));
-     }
+    private void recyclerViewSetup(){
+        setUpFoodList();
+        getFoodList();
+        ShoppingListAdapter adapter = new ShoppingListAdapter(ShoppingListActivity.this, shoppingList, ShoppingListActivity.this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
+    }
 
     private void getFoodList() {
         LiveData<List<String>> userObserver = shoppingListRepository.getFoodList();
@@ -122,7 +101,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
      */
     private void setUpFoodList() {
         try {
-            for (Kitchen food : shoppingListRepository.getAllLogs()) {
+            for (ShoppingList food : shoppingListRepository.getAllShoppingList()) {
                 shoppingList.add(food.getName());
             }
         } catch (Exception e) {
@@ -154,10 +133,10 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     @Override
     public void onItemClick(String foodname) {
-       // Intent intent = RecipesActivity.recipesActivityIntentFactory(getApplicationContext(), shoppingList.get(position));
-       // startActivity(intent);
+        // Intent intent = RecipesActivity.recipesActivityIntentFactory(getApplicationContext(), shoppingList.get(position));
+        // startActivity(intent);
         String text = foodname;
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 
-}
+    }
 }

@@ -5,16 +5,16 @@ import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
-import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 public class ShoppingListRepository {
-    private ShoppingListDAO shoppingListDAO;
+    private final ShoppingListDAO shoppingListDAO;
 
     private ArrayList<ShoppingList> allLogs;
 
@@ -81,4 +81,17 @@ public class ShoppingListRepository {
     public LiveData<Integer> getTotalQuantityByUserId(int userId) {
         return shoppingListDAO.getTotalQuantityByUserId(userId);
     }
+
+    public void deleteByFoodName(String foodName) {
+
+        KitchenDatabase.databaseWriteExecutor.execute(()->
+        {
+            shoppingListDAO.deleteByFoodName(foodName);
+        });
+    }
+
+    public LiveData<List<String>> getFoodList() {
+        return shoppingListDAO.getFoodList();
+    }
+
 }
