@@ -60,6 +60,13 @@ public class KitchenRepository {
         });
     }
 
+    public void deleteByQuantityName(Integer quantityName){
+        KitchenDatabase.databaseWriteExecutor.execute(()->
+        {
+            kitchenDAO.deleteByQuantityName(quantityName);
+        });
+    }
+
     public ArrayList<Kitchen> getAllLogs() {
         Future<ArrayList<Kitchen>> future = KitchenDatabase.databaseWriteExecutor.submit(
                 new Callable<ArrayList<Kitchen>>() {
@@ -82,12 +89,17 @@ public class KitchenRepository {
         return kitchenDAO.getFoodList();
     }
 
+    public LiveData<List<Integer>> getQuantityList(){
+        return kitchenDAO.getQuantityList();
+    }
+
     public void insertKitchen(Kitchen kitchen){
         KitchenDatabase.databaseWriteExecutor.execute(()->
         {
             kitchenDAO.insert(kitchen);
         });
     }
+
 
     public void clearKitchenByUserId(int userId){
         KitchenDatabase.databaseWriteExecutor.execute(()->

@@ -5,15 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.Toast;
 
+import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.database.KitchenRepository;
+import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.databinding.ActivityKitchenBinding;
+import com.beaconcode.kitchinventory.ui.adapters.KitchenAdapter;
+import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -21,7 +28,8 @@ import java.util.ArrayList;
  */
 public class KitchenActivity extends BaseActivity {
 
-    private ArrayList<String> kitchenInventory = new ArrayList<>();
+    private ArrayList<String> kitchenList = new ArrayList<>();
+    private ArrayList<Integer> quantityList = new ArrayList<>();
     private ActivityKitchenBinding binding;
     private KitchenRepository kitchenRepository;
     private RecyclerView recyclerView;
@@ -36,6 +44,66 @@ public class KitchenActivity extends BaseActivity {
         recyclerView = binding.kitchenDisplayRecyclerView;
 
         kitchenRepository = KitchenRepository.getRepository(getApplication());
+
+        recyclerViewSetup();
+
+
+
+    }
+
+    private void recyclerViewSetup(){
+        setUpFoodList();
+        getFoodList();
+
+        KitchenAdapter adapter = new KitchenAdapter(KitchenActivity.this, kitchenList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
+    }
+
+
+    private void getFoodList() {
+        LiveData<List<String>> userObserver = kitchenRepository.getFoodList();
+        userObserver.observe(this, list -> {
+            this.kitchenList = (ArrayList<String>) list;
+            if (list != null) {
+                invalidateOptionsMenu();
+            }
+        });
+    }
+
+    private void getQuantityList() {
+        LiveData<List<Integer>> userObserver = kitchenRepository.getQuantityList();
+        userObserver.observe(this, list -> {
+            this.quantityList = (ArrayList<Integer>) list;
+            if (list != null) {
+                invalidateOptionsMenu();
+            }
+        });
+    }
+
+    /**
+     * Sets up the list of food items to be displayed in the RecyclerView.
+     * Adds predefined food items to the foodList.
+     * This method should be replaced with fetching data from a room database when possible.
+     */
+    private void setUpFoodList() {
+        try {
+            for (Kitchen food : kitchenRepository.getAllLogs()) {
+                kitchenList.add(food.getName());
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Could not add to kitchen list", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void setUpQuantityList() {
+        try {
+            for (Kitchen amount : kitchenRepository.getAllLogs()) {
+                quantityList.add(amount.getQuantity());
+            }
+        } catch (Exception e) {
+            Toast.makeText(this, "Could not add to quantity list", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**

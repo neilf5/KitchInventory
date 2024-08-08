@@ -15,7 +15,6 @@ import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import java.util.ArrayList;
 
 public class KitchenAdapter extends RecyclerView.Adapter<KitchenAdapter.MyViewHolder> {
-
     Context context;
     ArrayList<String> foodList;
 
