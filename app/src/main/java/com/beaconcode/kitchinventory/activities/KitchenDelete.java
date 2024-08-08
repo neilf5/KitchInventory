@@ -38,8 +38,16 @@ public class KitchenDelete extends BaseActivity {
         public void onClick(View v) {
             String enteredFood = binding.enterDeletedItemBox.getText().toString();
             int enteredQuantity = 0;
-            Integer foundQuantity = 0;
-            Kitchen kitchenFound = new Kitchen();
+            int foundQuantity = 0;
+            Kitchen kitchenFound = null;
+
+            for (Kitchen kitchens : kitchenRepository.getAllLogs()) { //update quantity amount
+                if ( kitchens.getName().equals(enteredFood) && getLoggedInUserId() == kitchens.getUserId() ) {
+                    foundQuantity = kitchens.getQuantity();
+                    kitchenFound = kitchens;
+                    break;
+                }
+            }
 
             try { //invalid entries
                 enteredQuantity = Integer.parseInt(binding.enterQuantityDeletedBox.getText().toString());
@@ -49,22 +57,17 @@ public class KitchenDelete extends BaseActivity {
                 //negative or 0
             if (enteredQuantity <= 0) {
                 Toast.makeText(KitchenDelete.this, "Quantity cannot be less than or equal to 0", Toast.LENGTH_SHORT).show();
+            } else if (kitchenFound == null) {
+                Toast.makeText(KitchenDelete.this, "Food item not found", Toast.LENGTH_SHORT).show();
             }
 
             //not negative or less than 0
             else {
 
-                for (Kitchen kitchens : kitchenRepository.getAllLogs()) { //update quantity amount
-                    if ( kitchens.getName().equals(enteredFood) && getLoggedInUserId() == kitchens.getUserId() ) {
-                        foundQuantity = kitchens.getQuantity();
-                        kitchenFound = kitchens;
-                        break;
-                    }
-                }
-
                 //depending on amount, kitchen will be updated or deleted
                 if ( enteredQuantity == foundQuantity ) { //delete entirely if entered quantity equals stored amount
                     kitchenRepository.deleteByFoodName(enteredFood);
+                    Toast.makeText(KitchenDelete.this, "Food deleted!", Toast.LENGTH_SHORT).show();
                 } else if ( enteredQuantity > foundQuantity ) {
                     Toast.makeText(KitchenDelete.this, "The number you entered is too big", Toast.LENGTH_SHORT).show();
                 }
