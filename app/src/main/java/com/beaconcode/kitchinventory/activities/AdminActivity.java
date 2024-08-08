@@ -37,6 +37,8 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
         setContentView(binding.getRoot());
 
         userRepository = UserRepository.getRepository(getApplication());
+        kitchenRepository = KitchenRepository.getRepository(getApplication());
+        shoppingListRepository = ShoppingListRepository.getRepository(getApplication());
 
         // Set up the spinner
         Spinner spinner = findViewById(R.id.spn_users);
