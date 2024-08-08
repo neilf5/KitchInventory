@@ -8,15 +8,12 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
-import com.beaconcode.kitchinventory.data.database.KitchenRepository;
 import com.beaconcode.kitchinventory.data.database.ShoppingListRepository;
-import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
 import com.beaconcode.kitchinventory.databinding.ActivityShoppingListBinding;
 import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
@@ -32,7 +29,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     private ArrayList<String> shoppingList = new ArrayList<>();
     private ActivityShoppingListBinding binding;
-    private KitchenRepository shoppingListRepository;
+    private ShoppingListRepository shoppingListRepository2;
     private RecyclerView recyclerView;
 
     @Override
@@ -43,7 +40,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
         recyclerView = binding.shoppingListRecyclerView;
 
-        shoppingListRepository = KitchenRepository.getRepository(getApplication());
+        shoppingListRepository2 = ShoppingListRepository.getRepository(getApplication());
 
         recyclerViewSetup();
 
@@ -61,8 +58,9 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
                 if (quantity > 0)
                 {
                     //UPDATED THIS LINE TO INCLUDE NEW USERID PARAMETER
-                    Kitchen kitchen = new Kitchen(name, quantity, getLoggedInUserId());
-                    shoppingListRepository.insertKitchen(kitchen);
+                    ShoppingList item = new ShoppingList(name, quantity, getLoggedInUserId());
+                    shoppingListRepository2.insertShoppingList(item);
+
                 }
 
                 //doesn't always work :/
@@ -80,14 +78,10 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
             @Override
             public void onClick(View view) {
                 String name = binding.itemName.getText().toString();
-               // int quantity = Integer.parseInt(binding.itemQuantity.getText().toString());
 
+                shoppingListRepository2.deleteByFoodName(name);
 
-              //  Kitchen kitchen = new Kitchen(name, quantity);
-              //  shoppingListRepository.delete(kitchen);
-                shoppingListRepository.deleteByFoodName(name);
-
-               // setUpFoodList();
+                // setUpFoodList();
                 shoppingList.clear();
                 recyclerViewSetup();
                 shoppingList.clear();
@@ -95,18 +89,18 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
             }
         });
-     }
+    }
 
-     private void recyclerViewSetup(){
-         setUpFoodList();
-         getFoodList();
-         ShoppingListAdapter adapter = new ShoppingListAdapter(ShoppingListActivity.this, shoppingList, ShoppingListActivity.this);
-         recyclerView.setAdapter(adapter);
-         recyclerView.setLayoutManager(new LinearLayoutManager(null));
-     }
+    private void recyclerViewSetup(){
+        setUpFoodList();
+        getFoodList();
+        ShoppingListAdapter adapter = new ShoppingListAdapter(ShoppingListActivity.this, shoppingList, ShoppingListActivity.this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(null));
+    }
 
     private void getFoodList() {
-        LiveData<List<String>> userObserver = shoppingListRepository.getFoodList();
+        LiveData<List<String>> userObserver = shoppingListRepository2.getFoodList();
         userObserver.observe(this, list -> {
             this.shoppingList = (ArrayList<String>) list;
             if (list != null) {
@@ -122,7 +116,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
      */
     private void setUpFoodList() {
         try {
-            for (Kitchen food : shoppingListRepository.getAllLogs()) {
+            for (ShoppingList food : shoppingListRepository2.getAllLogs()) {
                 shoppingList.add(food.getName());
             }
         } catch (Exception e) {
@@ -154,10 +148,10 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
 
     @Override
     public void onItemClick(String foodname) {
-       // Intent intent = RecipesActivity.recipesActivityIntentFactory(getApplicationContext(), shoppingList.get(position));
-       // startActivity(intent);
+        // Intent intent = RecipesActivity.recipesActivityIntentFactory(getApplicationContext(), shoppingList.get(position));
+        // startActivity(intent);
         String text = foodname;
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
 
-}
+    }
 }

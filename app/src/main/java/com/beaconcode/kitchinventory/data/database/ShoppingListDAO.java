@@ -7,32 +7,49 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+
 import com.beaconcode.kitchinventory.data.database.entities.ShoppingList;
-import com.beaconcode.kitchinventory.data.database.entities.User;
+
 
 import java.util.List;
 
 /**
  * ShoppingList DAO
- * This is the DAO that manages requests for shoppingList_table
+ * This handles any transactions made to shoppingList_table
  */
 @Dao
 public interface ShoppingListDAO {
-
-
+    /**
+     * insert item into database
+     */
     @Insert
     void insert(ShoppingList... shoppingLists);
 
+    /**
+     * update item in database
+     */
     @Update
     void update(ShoppingList... shoppingLists);
 
+    /**
+     * delete item from database
+     */
     @Delete
-    void delete(ShoppingList shoppingLists);
+    void delete(ShoppingList shoppingList);
 
+    /**
+     * display all entries in database
+     */
     @Query("SELECT * from " + KitchenDatabase.SHOPPING_LIST_TABLE)
     List<ShoppingList> getAllRecords();
 
-    @Query("DELETE from " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE userId = :userId")
+    @Query("SELECT name from " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE quantity > 0")
+    LiveData<List<String>> getFoodList();
+
+    @Query("DELETE FROM " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE name == :foodName")
+    void deleteByFoodName(String foodName);
+
+    @Query("DELETE from " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE userId == :userId")
     void clearShoppingListByUserId(int userId);
 
     @Query("SELECT SUM(quantity) FROM " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE userId = :userId")
