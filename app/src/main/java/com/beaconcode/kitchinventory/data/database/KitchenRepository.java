@@ -111,4 +111,5 @@ public class KitchenRepository {
     public LiveData<Integer> getTotalQuantityByUserId(int userId) {
         return kitchenDAO.getTotalQuantityByUserId(userId);
     }
+
 }
