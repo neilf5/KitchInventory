@@ -32,9 +32,10 @@
 
             <TextView
                 android:id="@+id/foodName"
-                android:layout_width="85dp"
+                android:layout_width="400dp"
                 android:layout_height="30dp"
                 android:text="@string/textview2"
+                android:paddingLeft="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.08"
