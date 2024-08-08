@@ -33,7 +33,8 @@ public class KitchenAdd extends BaseActivity {
         binding = ActivityKitchenAddBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.addToKitchenButton.setOnClickListener(v -> {
+        //add from shopping list, doesn't work
+        binding.addFromShoppingListButton.setOnClickListener(v -> {
             Intent intent = KitchenActivity.kitchenActivityIntentFactory(getApplicationContext());
             String enteredFoodItem = binding.userShopListInput.getText().toString();
 
@@ -56,10 +57,14 @@ public class KitchenAdd extends BaseActivity {
                    return;
                 }
             }
+        });
+
+        //add on your own
+        binding.addToKitchenButton.setOnClickListener(v -> {
+            String enteredFoodItem = binding.userShopListInput.getText().toString();
 
 
         });
-
 
         binding.goToShoppingListButton.setOnClickListener(v -> {
             Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());

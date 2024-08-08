@@ -38,4 +38,6 @@
     <string name="add_items">Add Items</string>
     <string name="delete_items">Delete Items</string>
     <string name="add_items_kitchen">Add items</string>
+    <string name="add_from_my_shopping_list">Add from my Shopping List</string>
+    <string name="enter_item_you_want_to_add_to_your_kitchinventory">Enter item you want to add to your KitchInventory</string>
 </resources>
