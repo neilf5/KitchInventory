@@ -87,7 +87,7 @@ public class RecipeDetailsActivity extends BaseActivity {
      * @param mealId The ID of the meal to display.
      * @return The Intent to start the RecipeDetailsActivity.
      */
-    static Intent recipeDetailsIntentFactory(Context context, String mealId) {
+    public static Intent recipeDetailsIntentFactory(Context context, String mealId) {
         Intent intent = new Intent(context, RecipeDetailsActivity.class);
         intent.putExtra(RECIPES_ACTIVITY_MEAL_ID, mealId);
         return intent;

@@ -50,10 +50,10 @@ public class RecipeDetailsViewModel extends ViewModel {
         call.enqueue(new Callback<Meals>() {
 
             @Override
-            public void onResponse(Call<Meals> call, Response<Meals> response) {
+            public void onResponse(@NonNull Call<Meals> call, @NonNull Response<Meals> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Meal> meals = response.body().getMeals();
-                    if (!meals.isEmpty()) {
+                    if (meals != null && !meals.isEmpty()) {
                         meal.setValue(meals.get(0));
                     }
                 } else {

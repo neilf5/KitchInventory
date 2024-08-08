@@ -127,7 +127,7 @@ public class ShoppingListActivity extends BaseActivity implements CookInterface 
      * @param context The context from which the activity is started.
      * @return An Intent to start ShoppingListActivity.
      */
-    static Intent shoppingListActivityIntentFactory(Context context) {
+    public static Intent shoppingListActivityIntentFactory(Context context) {
         return new Intent(context, ShoppingListActivity.class);
     }
 

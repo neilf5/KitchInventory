@@ -53,7 +53,7 @@ public class ShoppingListDeleteActivity extends AppCompatActivity {
 
     }
 
-    static Intent shoppingListDeleteActivityIntentFactory(Context context) {
+    public static Intent shoppingListDeleteActivityIntentFactory(Context context) {
         return new Intent(context, ShoppingListDeleteActivity.class);
     }
 }

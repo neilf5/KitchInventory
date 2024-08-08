@@ -93,7 +93,7 @@ public class KitchenDelete extends BaseActivity {
         return true;
     }
 
-    static Intent kitchenDeleteActivitiyIntentFactory(Context context) {
+    public static Intent kitchenDeleteActivitiyIntentFactory(Context context) {
         Intent intent = new Intent(context, KitchenDelete.class);
         return intent;
     }

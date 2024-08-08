@@ -67,7 +67,7 @@ public class RecipesActivity extends BaseActivity implements RecipesInterface {
      * @param foodName The name of the ingredient to fetch recipes for.
      * @return An Intent to start RecipesActivity.
      */
-    static Intent recipesActivityIntentFactory(Context context, String foodName) {
+    static public Intent recipesActivityIntentFactory(Context context, String foodName) {
         Intent intent = new Intent(context, RecipesActivity.class);
         intent.putExtra(COOK_ACTIVITY_FOOD_NAME, foodName);
         return intent;

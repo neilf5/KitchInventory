@@ -67,7 +67,7 @@ public class UserRegistrationActivity extends AppCompatActivity {
         Toast.makeText(this, "User Added", Toast.LENGTH_SHORT).show();
     }
 
-    static Intent userRegistrationActivityIntentFactory(Context context) {
+    public static Intent userRegistrationActivityIntentFactory(Context context) {
         return new Intent(context, UserRegistrationActivity.class);
     }
 }
