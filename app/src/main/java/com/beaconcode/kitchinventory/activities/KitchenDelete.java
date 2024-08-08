@@ -36,6 +36,7 @@ public class KitchenDelete extends BaseActivity {
     binding.finalDeleteItemButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Intent intent = KitchenActivity.kitchenActivityIntentFactory(getApplicationContext());
             String enteredFood = binding.enterDeletedItemBox.getText().toString();
             int enteredQuantity = 0;
             int foundQuantity = 0;
@@ -68,11 +69,15 @@ public class KitchenDelete extends BaseActivity {
                 if ( enteredQuantity == foundQuantity ) { //delete entirely if entered quantity equals stored amount
                     kitchenRepository.deleteByFoodName(enteredFood);
                     Toast.makeText(KitchenDelete.this, "Food deleted!", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+
                 } else if ( enteredQuantity > foundQuantity ) {
                     Toast.makeText(KitchenDelete.this, "The number you entered is too big", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     kitchenFound.setQuantity(foundQuantity - enteredQuantity); //update quantity
+                    Toast.makeText(KitchenDelete.this, "Some of your food is now gone :(", Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
                 }
             }
         }
