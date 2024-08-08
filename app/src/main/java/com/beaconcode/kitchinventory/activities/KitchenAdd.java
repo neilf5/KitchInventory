@@ -37,7 +37,7 @@ public class KitchenAdd extends BaseActivity {
             String enteredFoodItem = binding.userShopListInput.getText().toString();
 
             Toast.makeText(KitchenAdd.this, "Why did you enter " + enteredFoodItem, Toast.LENGTH_SHORT).show();
-            /*  causes crash, maybe because there's nothing in shoppinglist table?
+            /*  //causes crash, maybe because there's nothing in shoppinglist table?
 
                 if (shoppingListRepository.getAllShoppingList().size() <= 0) {
                 Toast.makeText(KitchenAdd.this, "EMPTY", Toast.LENGTH_SHORT).show();
