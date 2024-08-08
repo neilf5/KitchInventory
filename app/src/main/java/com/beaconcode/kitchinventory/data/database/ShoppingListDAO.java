@@ -29,7 +29,7 @@ public interface ShoppingListDAO {
     void delete(ShoppingList shoppingLists);
 
     @Query("SELECT * from " + KitchenDatabase.SHOPPING_LIST_TABLE)
-    List<ShoppingList> getAllRecords();
+    List<ShoppingList> getAllShoppingList();
 
     @Query("DELETE from " + KitchenDatabase.SHOPPING_LIST_TABLE + " WHERE userId = :userId")
     void clearShoppingListByUserId(int userId);
