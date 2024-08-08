@@ -8,11 +8,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.data.database.KitchenRepository;
@@ -65,6 +67,36 @@ public class MainActivity extends BaseActivity {
             Intent intent = ShoppingListActivity.shoppingListActivityIntentFactory(getApplicationContext());
             startActivity(intent);
         });
+
+
+        shoppingListRepository.getTotalQuantityByUserId(getLoggedInUserId()).observe(this, new Observer<Integer>() {
+                    @Override
+                    public void onChanged(Integer totalQuantity) {
+                        if(totalQuantity!= null) {
+                            String qtyString = String.valueOf(totalQuantity);
+                            binding.shoppingListQty.setText("Item Qty: " + qtyString);
+                        }else{
+                            binding.shoppingListQty.setText("Item Qty: 0");
+                        }
+
+                    }
+                });
+
+        kitchenRepository.getTotalQuantityByUserId(getLoggedInUserId()).observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer totalQuantity) {
+                if(totalQuantity!= null) {
+                    String qtyString = String.valueOf(totalQuantity);
+                    binding.inventoryListQty.setText("Item Qty: " + qtyString);
+                }else{
+                    binding.inventoryListQty.setText("Item Qty: 0");
+                }
+
+            }
+        });
+
+
+
     }
 
     /**
