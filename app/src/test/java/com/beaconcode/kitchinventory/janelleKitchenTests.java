@@ -37,11 +37,13 @@ public class janelleKitchenTests {
         assertEquals(testKitchen.getName(), otherKitchen.getName());
     }
 
+    @Test
     public void getQuantity() {
         assertEquals(5, testKitchen.getQuantity());
         assertEquals(8, otherKitchen.getQuantity());
     }
 
+    @Test
     public void setQuantity() {
         testKitchen.setQuantity(8);
         assertEquals(testKitchen.getQuantity(), otherKitchen.getQuantity());
