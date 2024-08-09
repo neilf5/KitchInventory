@@ -40,5 +40,19 @@
     <string name="add_items_kitchen">Add items</string>
     <string name="add_from_my_shopping_list">Add from my Shopping List</string>
     <string name="enter_item_you_want_to_add_to_your_kitchinventory">Enter item you want to add to your KitchInventory</string>
+    <string name="select_user">Select User</string>
+    <string name="clear_user_s_shopping_list">Clear User\'s Shopping List</string>
+    <string name="clear_user_s_kitchen">Clear User\'s Kitchen</string>
+    <string name="delete_user">Delete User</string>
+    <string name="qty">Qty</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="recipe_instructions">Recipe Instructions</string>
+    <string name="recipe_name">Recipe Name</string>
+    <string name="picture_of_food">Picture of food</string>
+    <string name="ingredient_name">Ingredient Name</string>
+    <string name="food_name">Food Name</string>
+    <string name="measure">Measure</string>
+    <string name="ingredient">Ingredient</string>
+    <string name="recipe_image">Recipe Image</string>
     <string name="add_to_my_kitchinventory">Add to my KitchInventory</string>
 </resources>

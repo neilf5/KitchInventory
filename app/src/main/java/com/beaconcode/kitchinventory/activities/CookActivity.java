@@ -5,36 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
-import com.beaconcode.kitchinventory.data.database.KitchenRepository;
-import com.beaconcode.kitchinventory.data.database.entities.Kitchen;
 import com.beaconcode.kitchinventory.databinding.ActivityCookBinding;
 import com.beaconcode.kitchinventory.ui.adapters.CookAdapter;
-import com.beaconcode.kitchinventory.ui.adapters.ShoppingListAdapter;
 import com.beaconcode.kitchinventory.ui.view.CookInterface;
 import com.beaconcode.kitchinventory.ui.viewmodels.CookViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Activity class for displaying a list of food items and handling item click events.
  * This activity implements the CookInterface to handle item click events in the RecyclerView.
- * TODO: Future implementation of this activity should display a list of food items that is fetched from room database.
+ * The activity uses a ViewModel to fetch and observe the list of food items.
+ * The RecyclerView displays the food items in a list.
  */
 public class CookActivity extends BaseActivity implements CookInterface {
 
-    private String foodName;
-    private ArrayList<String> foodList = new ArrayList<>();
     private ActivityCookBinding binding;
-    private KitchenRepository kitchenRepository;
     private CookAdapter adapter;
     private CookViewModel viewModel;
     private RecyclerView recyclerView;

@@ -12,6 +12,7 @@ import java.util.Objects;
  * Holds the name of the meal, the URL of the meal image, and the meal ID.
  * It also holds the instructions for preparing the meal, and the list of ingredients and their measures.
  */
+@SuppressWarnings("unused")
 public class Meal {
     private String strMeal;
     private String strMealThumb;
@@ -86,7 +87,7 @@ public class Meal {
      * Get the list of non-empty ingredients.
      * This method uses reflection to get all the strIngredient fields in the class.
      * It then checks if the field is non-empty and adds it to the list of ingredients.
-     * @return
+     * @return A list of non-empty ingredients.
      */
     public List<String> getNonEmptyIngredients() {
         List<String> ingredients = new ArrayList<>();
@@ -108,14 +109,6 @@ public class Meal {
             }
 
         }
-//        Manual implementation
-//        if (strIngredient1 != null && !strIngredient1.isEmpty()) ingredients.add(strIngredient1);
-//        if (strIngredient2 != null && !strIngredient2.isEmpty()) ingredients.add(strIngredient2);
-//        if (strIngredient3 != null && !strIngredient3.isEmpty()) ingredients.add(strIngredient3);
-//        // ... add checks for all other ingredients
-//        if (strIngredient9 != null && !strIngredient9.isEmpty()) ingredients.add(strIngredient9);
-//        if (strIngredient10 != null && !strIngredient10.isEmpty()) ingredients.add(strIngredient10);
-//
         return ingredients;
     }
 
@@ -123,7 +116,7 @@ public class Meal {
      * Get the list of non-empty measures.
      * This method uses reflection to get all the strMeasure fields in the class.
      * It then checks if the field is non-empty and adds it to the list of measures.
-     * @return
+     * @return A list of non-empty measures.
      */
     public List<String> getNonEmptyMeasures() {
         List<String> measures = new ArrayList<>();
@@ -145,14 +138,6 @@ public class Meal {
                 }
             }
         }
-
-//        if (strMeasure1 != null && !strMeasure1.isEmpty()) measures.add(strMeasure1);
-//        if (strMeasure2 != null && !strMeasure2.isEmpty()) measures.add(strMeasure2);
-//        if (strMeasure3 != null && !strMeasure3.isEmpty()) measures.add(strMeasure3);
-//        // ... add checks for all other measures
-//        if (strMeasure9 != null && !strMeasure9.isEmpty()) measures.add(strMeasure9);
-//        if (strMeasure10 != null && !strMeasure10.isEmpty()) measures.add(strMeasure10);
-//
         return measures;
     }
 
