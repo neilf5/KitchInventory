@@ -54,4 +54,5 @@
     <string name="measure">Measure</string>
     <string name="ingredient">Ingredient</string>
     <string name="recipe_image">Recipe Image</string>
+    <string name="add_to_my_kitchinventory">Add to my KitchInventory</string>
 </resources>

@@ -44,7 +44,7 @@ public class KitchenAdd extends BaseActivity {
 
 
                 if (shoppingListRepository.getAllShoppingList().isEmpty()) {
-               return;
+                    Toast.makeText(KitchenAdd.this, "EMPTY", Toast.LENGTH_SHORT).show();
             }
 
             for (ShoppingList shoppinglist : shoppingListRepository.getAllShoppingList()) {
@@ -52,13 +52,15 @@ public class KitchenAdd extends BaseActivity {
 
 
                     //add found food from shopping list over to kitchen's list
-                    Kitchen kitchen = new Kitchen(shoppinglist.getName(), shoppinglist.getQuantity(), shoppinglist.getUserId());
+                    Kitchen kitchen = new Kitchen(shoppinglist.getName(), shoppinglist.getQuantity(), getLoggedInUserId());
                     kitchenRepository.insertKitchen(kitchen); //add new kitchen over to database
                     shoppingListRepository.clearShoppingListByUserId(shoppinglist.getUserId()); //remove the item from shopping list
+                    Toast.makeText(KitchenAdd.this, "Food added to your KitchInventory!", Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+                    break;
 
                 } else {
-                   return;
+                    Toast.makeText(KitchenAdd.this, "Food could not be added", Toast.LENGTH_SHORT).show();
                 }
             }
         });
