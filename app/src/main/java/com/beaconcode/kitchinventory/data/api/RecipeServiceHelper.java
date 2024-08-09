@@ -36,27 +36,4 @@ public class RecipeServiceHelper {
     public Call<Meals> getRecipesByIngredient(String ingredient) {
         return recipeApiService.getRecipesByIngredient(ingredient);
     }
-
-//    This was an alternative implementation of the getRecipesByIngredient method that defined a custom callback interface.
-//    This is now being handled directly in the ViewModel using LiveData. Using for reference only.
-//
-//    public void getRecipesByIngredient(String ingredient, Callback<List<Recipe>> callback) {
-//        Call<List<Recipe>> call = recipeApiService.getRecipesByIngredient(ingredient);
-//        call.enqueue(new Callback<List<Recipe>>() {
-//            @Override
-//            public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
-//                if (response.isSuccessful() && response.body() != null) {
-//                    callback.onResponse(call, response);
-//                    // Do something with the recipes
-//                } else {
-//                    // Handle the error
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-//                callback.onFailure(call, t);
-//            }
-//        });
-//    }
 }

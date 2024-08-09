@@ -11,7 +11,7 @@
         android:id="@+id/tv_ingredientName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TEST RECIPES"
+        android:text="@string/ingredient_name"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

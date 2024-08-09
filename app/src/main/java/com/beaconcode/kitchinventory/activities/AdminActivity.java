@@ -57,19 +57,13 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
         });
 
         // Set up the delete button
-        binding.btnDeleteUser.setOnClickListener(v -> {
-            confirmDeleteUser();
-                    });
+        binding.btnDeleteUser.setOnClickListener(v -> confirmDeleteUser());
 
         // Set up clear shopping list button
-        binding.btnClearShoppingList.setOnClickListener(v -> {
-            confirmClearShoppingList();
-        });
+        binding.btnClearShoppingList.setOnClickListener(v -> confirmClearShoppingList());
 
         // Set up clear kitchen button
-        binding.btnClearKitchen.setOnClickListener(v -> {
-            confirmClearKitchen();
-        });
+        binding.btnClearKitchen.setOnClickListener(v -> confirmClearKitchen());
 
 
     }
@@ -127,7 +121,7 @@ public class AdminActivity extends AppCompatActivity implements AdapterView.OnIt
 
     /**
      * Factory method to create an Intent to start this activity.
-     * @param context
+     * @param context The context from which the intent is created.
      * @return Intent to start this activity.
      */
     static Intent adminActivityIntentFactory(Context context) {

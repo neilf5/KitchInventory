@@ -1,13 +1,11 @@
 package com.beaconcode.kitchinventory.ui.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.beaconcode.kitchinventory.R;
@@ -17,7 +15,6 @@ import java.util.List;
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientsViewHolder> {
     private List<String> ingredients;
     private List<String> measures;
-    Context context;
 
     public IngredientsAdapter(List<String> ingredients, List<String> measures) {
         this.ingredients = ingredients;

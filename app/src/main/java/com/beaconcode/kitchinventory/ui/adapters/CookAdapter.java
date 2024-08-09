@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.beaconcode.kitchinventory.R;
 import com.beaconcode.kitchinventory.ui.view.CookInterface;
 
-import java.util.ArrayList;
-
 /**
  * Adapter class for displaying a list of food items in a RecyclerView.
  * This adapter binds the data to the views in each item of the RecyclerView.
