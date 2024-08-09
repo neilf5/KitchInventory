@@ -52,7 +52,7 @@
         android:id="@+id/addToKitchenButton"
         android:layout_width="300dp"
         android:layout_height="50dp"
-        android:text="@string/add_to_my_kitchinvetory"
+        android:text="@string/add_to_my_kitchinventory"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
