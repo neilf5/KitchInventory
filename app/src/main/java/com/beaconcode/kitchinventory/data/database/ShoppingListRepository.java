@@ -27,6 +27,8 @@ public class ShoppingListRepository {
 
     }
 
+
+
     public static ShoppingListRepository getRepository(Application application) {
         if (repository != null) {
             return repository;

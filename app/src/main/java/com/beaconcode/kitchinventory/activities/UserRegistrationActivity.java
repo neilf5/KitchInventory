@@ -31,15 +31,17 @@ public class UserRegistrationActivity extends AppCompatActivity {
 
         binding.submitButton.setOnClickListener(v -> {
             getUserInfoFromDisplay();
-
+            //Checks if the username field is empty
             if(mUsername.isEmpty()){
                 Toast.makeText(UserRegistrationActivity.this, "Please enter a username.", Toast.LENGTH_SHORT).show();
                 return;
             }
+            //Checks if the password field is empty
             if(mPassword.isEmpty()){
                 Toast.makeText(UserRegistrationActivity.this, "Please enter a password.", Toast.LENGTH_SHORT).show();
                 return;
             }
+            //Checks if the password field matches the verification password field
             if(!mVerify.equals(mPassword)){
                 Toast.makeText(UserRegistrationActivity.this, "Passwords do not match.", Toast.LENGTH_SHORT).show();
                 return;
@@ -67,6 +69,9 @@ public class UserRegistrationActivity extends AppCompatActivity {
         Toast.makeText(this, "User Added", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Intent factory for userRegistration
+     */
     public static Intent userRegistrationActivityIntentFactory(Context context) {
         return new Intent(context, UserRegistrationActivity.class);
     }

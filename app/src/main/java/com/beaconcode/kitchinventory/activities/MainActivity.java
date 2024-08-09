@@ -69,6 +69,10 @@ public class MainActivity extends BaseActivity {
         });
 
 
+        /**
+         * This gets the total combined qty of items in the shopping list
+         * and updates the text view next to the button
+         */
         shoppingListRepository.getTotalQuantityByUserId(getLoggedInUserId()).observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(Integer totalQuantity) {
@@ -82,6 +86,10 @@ public class MainActivity extends BaseActivity {
                     }
                 });
 
+        /**
+         * This gets the total combined qty of items in the Kitchen Inventory
+         * and updates the text view next to the button
+         */
         kitchenRepository.getTotalQuantityByUserId(getLoggedInUserId()).observe(this, new Observer<Integer>() {
             @Override
             public void onChanged(Integer totalQuantity) {
