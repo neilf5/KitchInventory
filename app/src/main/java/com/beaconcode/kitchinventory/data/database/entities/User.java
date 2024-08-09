@@ -10,6 +10,7 @@ import java.util.Objects;
 /**
  * Represents a user of the KitchInventory app.
  * This entity is stored in the user_table of the Room database.
+ * has all getters and setters
  */
 @Entity(tableName = KitchenDatabase.USER_TABLE)
 public class User {
